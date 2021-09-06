@@ -1,0 +1,23 @@
+﻿@model DotacionWEBCore.Models.ListaModelo
+@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+
+@{
+    ViewData["Title"] = "ActualizaRegistros1";
+}
+
+
+
+<h1>Descarga contratos</h1>
+<h4>Filtra y Descarga los contratos registrados en un archivo Excel</h4>
+<br />
+
+<hr />
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Volver</a>
+</div>
+<hr />
+

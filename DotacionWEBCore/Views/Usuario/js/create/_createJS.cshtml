@@ -1,0 +1,73 @@
+﻿<script type="module">
+
+    import { FuncionesGenerales } from "../app/js/funciones-generales/funciones-generales.js";
+    //
+    import { AppCrearUsuario } from "../app/js/usuario/crear/app-crear.js";
+    import { UiCrearUsuario } from "../app/js/usuario/crear/ui-crear.js";
+    import { ApiCrearUsuario } from "../app/js/usuario/crear/api-crear.js";
+
+    // ########################################### DEFINICION DE VAR ###########################################
+
+    var urlGetComuna = '@Url.Content("~/")' + "Usuario/GetComunas";
+    var urlGetComunaDelServicio = '@Url.Content("~/")' + "Usuario/GetComunaDelServicio";
+
+    // ################################# INICIALIZAR CLASES - FUNCION DE INIT CAMPOS ##################################
+
+    const metodos = new FuncionesGenerales();
+
+    const api = new ApiCrearUsuario(urlGetComuna, urlGetComunaDelServicio);
+    const ui = new UiCrearUsuario(metodos, api);
+    const app = new AppCrearUsuario(metodos, ui, api);
+
+    function initDOM() {
+        app.initApp();
+    }
+
+    function domIsReady() {
+        app.domIsReadyApp();
+    }
+
+    // ##################################### INICIAR: CARGAR CONTENIDO DOM HTML #######################################
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDOM();
+    });
+
+    document.onreadystatechange = () => {
+        domIsReady();
+    };
+
+    // ####################################### LLAMAR FUNCIONES #######################################################
+    //
+    datetimePicker();
+    app.sendFormSubmit();
+    app.mostrarCampos();
+    app.togglePasswordEye();
+    ui.checkNumeros();
+
+    // ########################################### FUNCIONES ##########################################################
+    function datetimePicker() {
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'far fa-clock',
+                date: 'far fa-calendar-alt',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'fas fa-trash',
+                close: 'fas fa-times'
+            }
+        });
+
+        $('#fechaNacimientoUsuario').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY',
+            // format: 'YYYY/MM/DD',
+            // date: moment(),
+        });
+    }
+
+</script>
+

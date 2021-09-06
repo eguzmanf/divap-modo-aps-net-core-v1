@@ -1,0 +1,202 @@
+﻿@model DotacionWEBCore.ViewModels.EditaRegistrosViewModel
+@{
+    ViewData["Title"] = "Editar Contratos: " + Model.Nombre + " " + Model.Apellido_Paterno + " " + Model.Apellido_Materno;
+}
+
+<h1>Editar contratos</h1>
+<h4>Edita los contratos registrados</h4>
+<br />
+
+<div class="tab-pane fade show" role="tabpanel">
+    <div class="row justify-content-center">
+        <div class="col-sm-11 offset-sm-2">
+            <h5>Datos del establecimiento:</h5>
+            <hr />
+            <form asp-action="EditaRegistros" id="formEditarUsuario" method="post">
+                <div asp-validation-summary="All" class="text-danger" id="aspValidationSummaryAll"></div>
+                <input type="hidden" id="idRegistro" asp-for="ID_Registro" />
+                <input type="hidden" id="idID" asp-for="ID" />
+                <input type="hidden" id="dvHidden" asp-for="DV" />
+                <input type="hidden" id="idPerfil" value="@ViewBag.RolId" />
+                <input type="hidden" id="perfilName" value="@ViewBag.Rol" />
+
+                <label asp-for="ID_Servicio" class="col col-md-1"></label>
+                <select id="ID_Servicio" asp-for="ID_Servicio" asp-items=Model.ServiciosList>
+                    @if (ViewBag.RolId == "3")
+                    {
+                        <option value="">---Seleccionar Servicio---</option>
+                    }
+                </select>
+
+                <label asp-for="ID_Comuna" class="col col-sm-1"></label>
+                <select id="ID_Comuna" asp-for="ID_Comuna" class="col-sm-2 px-xl-1" asp-items=Model.ComunasList>
+                </select>
+
+                <label asp-for="ID_Establecimiento" class="col col-sm-2 text-center"></label>
+                <select id="ID_Establecimiento" asp-for="ID_Establecimiento" class="col col-sm-3" asp-items=Model.EstablecimientoList>
+                </select>
+
+                <br />
+                <br />
+
+                <label asp-for="Administracion" class="col col-sm-2 text-right"></label>
+                <select size="1" maxlength="1" id="Administracion" asp-for="Administracion" asp-items=Model.AdministracionList>
+                </select>
+
+                <br />
+                <hr />
+
+                <h5>Datos del funcionario:</h5>
+                <hr />
+
+                <label asp-for="Rut" class="col col-md-2 text-center"></label>
+                <input type="text" id="Rut" asp-for="Rut" size="6" maxlength="8" readonly="readonly" />
+
+                <label asp-for="DV" size="20" class="text-sm-right"></label>
+                <select size="1" maxlength="1" id="DV" asp-for="DV" asp-items=Model.DigitoVerificadorList disabled="disabled">
+                </select>
+
+                <label asp-for="Apellido_Paterno" class="col col-sm-2 text-center"></label>
+                <input type="text" size="20" id="Apellido_Paterno" asp-for="Apellido_Paterno" onchange="javascript:this.value=this.value.toUpperCase();" maxlength="40" />
+
+                <label asp-for="Apellido_Materno" class="col col-sm-2 text-center"></label>
+                <input type="text" size="20" id="Apellido_Materno" asp-for="Apellido_Materno" onchange="javascript:this.value=this.value.toUpperCase();" maxlength="40" />
+
+                <br />
+                <br />
+
+                <label asp-for="Nombre" class="col col-md-1"></label>
+                <input type="text" size="30" id="Nombre" asp-for="Nombre" onchange="javascript:this.value=this.value.toUpperCase();" maxlength="40" />
+
+                <label asp-for="Sexo" class="col col-sm-1 text-center"></label>
+                <select size="1" maxlength="1" id="Sexo" asp-for="Sexo" asp-items=Model.GeneroList>
+                </select>
+
+                <label asp-for="Fecha_Nacimiento" class="col col-md-2 text-center"></label>
+                <input size="5" type="date" min="1945-01-01" max="2004-12-31" id="Fecha_Nacimiento" asp-for="Fecha_Nacimiento" />
+
+                <br />
+                <br />
+
+                <label asp-for="Nacionalidad" class="col col-md-2 text-center"></label>
+                <select size="1" maxlength="1" id="Nacionalidad" asp-for="Nacionalidad" asp-items=Model.NacionalidadList>
+                </select>
+
+                <br />
+                <hr />
+
+                <h5>Datos del contrato:</h5>
+                <hr />
+
+                <label asp-for="Ley" class="col col-sm-1 text-center"></label>
+                <select size="1" maxlength="1" id="Ley" asp-for="Ley" asp-items=Model.LeyList>
+                </select>
+
+                <label asp-for="Tipo_contrato" class="col col-md-1 text-right"></label>
+                <select id="Tipo_contrato" asp-for="Tipo_contrato" class="col-sm-1 px-xl-1" asp-items=Model.TipoContratoList>
+                </select>
+
+                <label asp-for="Categoria" class="col col-md-1"></label>
+                <select size="1" maxlength="1" id="Categoria" asp-for="Categoria" asp-items=Model.CategoriaList>
+                </select>
+
+                <label asp-for="Nivel_Carrera" class="col col-sm-2 text-center"></label>
+                <select size="1" maxlength="2" id="Nivel_Carrera" asp-for="Nivel_Carrera" asp-items=Model.NivelCarreraList>
+                </select>
+
+                <br />
+                <br />
+
+                <label asp-for="Profesion" class="col col-md-1"></label>
+                <select id="Profesion" asp-for="Profesion" class="col-sm-2 px-xl-1" asp-items=Model.ProfesionList>
+                </select>
+
+                <label asp-for="Especialidad" class="col col-sm-2 text-center"></label>
+                <select id="Especialidad" asp-for="Especialidad" class="col col-sm-2" asp-items=Model.EspecialidadList>
+                </select>
+
+                <br />
+
+                <label asp-for="Cargo" class="col col-sm-1 text-center"></label>
+                <select id="Cargo" asp-for="Cargo" class="col col-sm-2" asp-items=Model.CargoList>
+                </select>
+
+                <label asp-for="Funciones_Chofer" class="col col-md-1 text-right"></label>
+                <select size="1" id="Funciones_Chofer" asp-for="Funciones_Chofer" asp-items=Model.FuncionesChoferList>
+                </select>
+
+                <label asp-for="Jornada" class="col col-md-1 text-right"></label>
+                <input size="2" maxlength="2" type="text" id="Jornada" asp-for="Jornada" />
+
+                <label asp-for="Anos_Servicio" class="col col-sm-2 text-center"></label>
+                <input size="2" maxlength="2" type="text" id="Anos_Servicio" asp-for="Anos_Servicio" />
+
+                <br />
+                <br />
+
+                <label asp-for="Fecha_Ingreso" class="col col-md-2 text-right"></label>
+                <input size="5" type="date" min="1970-01-01" id="Fecha_Ingreso" asp-for="Fecha_Ingreso">
+
+                <label asp-for="Bienios" class="col col-sm-1 text-center"></label>
+                <select size="1" maxlength="2" id="Bienios" asp-for="Bienios" asp-items=Model.BieniosList>
+                </select>
+
+                <label asp-for="Tipo_Prevision" class="col col-sm-1 text-center"></label>
+                <select size="1" maxlength="2" id="Tipo_Prevision" asp-for="Tipo_Prevision" asp-items=Model.TipoPrevisionList>
+                </select>
+
+                <label asp-for="Tipo_Isapre" class="col col-sm-1 text-center"></label>
+                <select size="1" maxlength="2" id="Tipo_Isapre" asp-for="Tipo_Isapre" asp-items=Model.TipoIsapreList>
+                </select>
+
+                <br />
+                <br />
+
+                <label asp-for="SBase_Comunal" class="col col-md-2 text-Center"></label>
+                <input size="12" maxlength="10" type="text" id="SBase_Comunal" asp-for="SBase_Comunal" />
+
+                <label asp-for="Haberes" class="col col-md-2 text-center"></label>
+                <input size="12" maxlength="10" type="text" id="Haberes" asp-for="Haberes" />
+
+                <hr />
+                <div class="form-group">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Actualizar Registro
+                    </button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Actualizar Registro</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    Va a Actualizar el registros en la base de datos, esta acción no se puede deshacer ¿Actualizar registros?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="submit" class="btn btn-primary" name="btnEnviarDatosComputadora" id="btnEnviarDatosComputadora">
+                                        Si
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div>
+                    <a asp-controller="ActualizaRegistros" asp-action="ActualizaRegistros">Volver</a>
+                </div>
+                <hr />
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("~/Views/EditaRegistros/js/edit/_EditaRegistrosJS.cshtml");}
+}

@@ -1,0 +1,147 @@
+﻿
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#ExampleModalLoading").modal("show");
+        var items = "<option value='0'></option>";
+        $('#valorMensaje').html(items);
+    });
+</script>
+
+
+    <Head>
+        <environment include="Development">
+            <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+            <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+        </environment>
+
+        <environment include="Production">
+            <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+            <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+        </environment>
+
+    </Head>
+
+    <div class="text-center">
+        <h1 class="display-4">Plataforma de Gestión APS</h1>
+        <!--       <p>
+                   Subir el <a asp-action="Cargamanual" asp->
+                       manual
+                   </a> del usuario
+               <p>
+                  Subir el <a asp-action="CargaExcel" asp->
+                   Archivo de Carga
+               </a> del usuario
+               </p>
+         -->
+        <br />
+        <br />
+        <br />
+
+    </div>
+
+    <!-- Icons Grid -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 text-md-center">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <a class="nav-link text-light" asp-area="" asp-controller="Cargasimple" asp-action="CargaSimple">
+                        <span style="font-size: 5rem;">
+                            <span style="color: steelblue;">
+                                <i class="fas fa-desktop"></i>
+                            </span>
+                        </span>
+                        <h3>Registrar</h3>
+                        <p class="lead mb-0">Ingrese la dotación registro a registro</p>
+                    </a>
+                </div>
+            </div>
+
+            @if (ViewBag.RolId == "3")
+            {
+                <div class="col-lg-4 text-md-center">
+                    <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                        <a class="nav-link text-light" asp-area="" asp-controller="Cargamultiple" asp-action="Cargamultiple">
+                            <span style="font-size: 5rem;">
+                                <span style="color: steelblue;">
+                                    <i class="fas fa-database"></i>
+                                </span>
+                            </span>
+                            <h3>Registrar masivamente</h3>
+                            <p class="lead mb-0">Ingrese la dotación desde un archivo Excel</p>
+                        </a>
+                    </div>
+                </div>
+            }
+
+            <div class="col-lg-4 text-md-center">
+                <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                    <a class="nav-link text-light" asp-area="" asp-controller="ActualizaRegistros" asp-action="ActualizaRegistros">
+                        <span style="font-size: 5rem;">
+                            <span style="color: steelblue;">
+                                <i class="fas fa-edit"></i>
+                            </span>
+                        </span>
+                        <h3>Revisar contratos</h3>
+                        <p class="lead mb-0">Revise, actualice y valide los contratos registrados</p>
+                    </a>
+                </div>
+            </div>
+
+            <!--
+                     <div class="col-lg-4 text-md-center">
+                         <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                             <a class="nav-link text-light" asp-area="" asp-controller="IncentivoRetiro" asp-action="IncentivoRetiro">
+                                 <span style="font-size: 5rem;">
+                                     <span style="color: steelblue;">
+                                         <i class="fas fa-briefcase-medical"></i>
+                                     </span>
+                                 </span>
+                                 <h3>Retiro Voluntario</h3>
+                                 <p class="lead mb-0">Revise e indique los postulantes a retiro voluntario</p>
+                             </a>
+                         </div>
+                     </div>
+
+                 </div>
+             </div>
+
+    -->
+
+
+
+
+
+
+            <div class="modal fade" id="ExampleModalLoading" tabindex="-1" role="dialog" aria-labelledby="ExampleModalLabelLoading" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Últimas Novedades</h5>
+                        </div>
+                        <div class="modal-body">
+                            <label>@ViewData["Mensaje"]</label>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn btn-danger">Cerrar</a>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Bootstrap core JavaScript -->
+            <script src="~/vendor/jquery/jquery.min.js"></script>
+            <!-- <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->

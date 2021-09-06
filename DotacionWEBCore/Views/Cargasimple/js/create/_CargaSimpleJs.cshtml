@@ -1,0 +1,67 @@
+﻿<script type="module">
+
+    import { FuncionesGenerales } from "../app/js/funciones-generales/funciones-generales.js";
+    //
+    import { AppCargaSimple } from "../app/js/cargasimple/crear/app-cargasimple.js";
+    import { UiCargaSimple } from "../app/js/cargasimple/crear/ui-cargasimple.js";
+    import { ApiCargaSimple } from "../app/js/cargasimple/crear/api-cargasimple.js";
+
+    // ########################################### DEFINICION DE VAR ###########################################
+    var urlGetComunasByServicioChange = '@Url.Content("~/")' + "Cargasimple/GetComunasByServicioChange";
+    var urlGetComunasDelServicio = '@Url.Content("~/")' + "Cargasimple/GetComunasDelServicio";
+    var urlGetComunas = '@Url.Content("~/")' + "Cargasimple/GetComunasListSelect";
+    var urlGetEstablecimiento = '@Url.Content("~/")' + "Cargasimple/GetEstablecimientosListSelect";
+    var urlGetContrato = '@Url.Content("~/")' + "Cargasimple/GetTipoContrato";
+    var urlGetCategorias = '@Url.Content("~/")' + "Cargasimple/GetTipoCategorias";
+    var urlNivelCarrera = '@Url.Content("~/")' + "Cargasimple/GetNivelCarrera";
+    var urlGetProfesion = '@Url.Content("~/")' + "Cargasimple/GetProfesion";
+    var urlGetTipoCategoriaChange = '@Url.Content("~/")' + "Cargasimple/GetTipoCategoriaChange";
+    var urlGetTipoEspecialidadProfesionChange = '@Url.Content("~/")' + "Cargasimple/GetTipoEspecialidadProfesionChange";
+    var urlGetAsignacionChoferAmbulancia = '@Url.Content("~/")' + "Cargasimple/GetAsignacionChoferAmbulancia";
+
+    // ################################# INICIALIZAR CLASES - FUNCION DE INIT CAMPOS ###########################
+
+    const metodos = new FuncionesGenerales();
+
+    const api = new ApiCargaSimple(urlGetComunasByServicioChange, urlGetComunasDelServicio, urlGetComunas, urlGetEstablecimiento, urlGetContrato, urlGetCategorias, urlNivelCarrera, urlGetProfesion, urlGetTipoCategoriaChange, urlGetTipoEspecialidadProfesionChange, urlGetAsignacionChoferAmbulancia);
+    const ui = new UiCargaSimple(metodos, api);
+    const app = new AppCargaSimple(metodos, ui, api);
+
+    function initDOM() {
+        app.initApp();
+    }
+
+    function domIsReady() {
+        app.domIsReadyApp();
+    }
+
+    // ##################################### INICIAR: CARGAR CONTENIDO DOM HTML #######################################
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDOM();
+    });
+
+    document.onreadystatechange = () => {
+        domIsReady();
+    };
+
+    // ####################################### LLAMAR FUNCIONES #######################################################
+    //
+    app.getComunaServicioChange();
+    app.getEstablecimiento();
+    app.getContrato();
+    app.getCategoria();
+    app.getEspecialidad();
+    app.getAsignacionChoferAmbulancia();
+    app.baseComunalFormat();
+    app.totalHaberesFormat();
+    // datetimePicker();
+    // app.sendFormSubmit();
+    // app.mostrarCampos();
+    // app.togglePasswordEye();
+    // ui.checkNumeros();
+
+    // ########################################### FUNCIONES ##########################################################
+
+</script>
+

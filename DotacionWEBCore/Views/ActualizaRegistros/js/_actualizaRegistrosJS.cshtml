@@ -1,0 +1,26 @@
+﻿<script type="module">
+
+    document.onreadystatechange = () => {
+        //
+        if (document.readyState === 'complete') {
+            //
+            let sBaseComunal = document.querySelectorAll('.sBaseComunal');
+            let haberes = document.querySelectorAll('.haberes');
+
+            for (let i = 0; i < sBaseComunal.length; ++i) {
+                //
+                let number = parseInt(sBaseComunal[i].innerHTML.trim());
+                let sBaseComunalMiles = $.number(number, 0, ',', '.');
+                sBaseComunal[i].innerHTML = sBaseComunalMiles;
+            }
+
+            for (let i = 0; i < haberes.length; ++i) {
+                //
+                let number = parseInt(haberes[i].innerHTML.trim());
+                let haberesMiles = $.number(number, 0, ',', '.');
+                haberes[i].innerHTML = haberesMiles;
+            }
+        }
+    };
+
+</script>

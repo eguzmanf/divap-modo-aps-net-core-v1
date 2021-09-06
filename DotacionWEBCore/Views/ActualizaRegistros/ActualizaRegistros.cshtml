@@ -1,0 +1,588 @@
+﻿@*@model DotacionWEBCore.Models.ListaRegistros*@
+
+@model DotacionWEBCore.ViewModels.ListadoViewModel<DotacionWEBCore.Models.ListaRegistros>
+@*@model DotacionWEBCore.ViewModels.ActualizaRegistrosViewModel*@
+
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+@*@model IEnumerable<DotacionWEBCore.Models.Registros>*@
+
+@{
+    ViewData["Title"] = "ActualizaRegistros1";
+    int PerfilUsuario = ViewBag.ID_PerfilUsuario;
+}
+
+
+<Head>
+    <environment include="Development">
+        <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    </environment>
+
+    <environment include="Production">
+        <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    </environment>
+
+</Head>
+
+<h1>Actualiza contratos</h1>
+<h4>Actualizar los contratos registros</h4>
+<h5 class="align-self-lg-center">Perfil: @ViewData["Perfil"]</h5>
+<h5 class="align-self-lg-center">@ViewData["ID"]</h5>
+<br />
+
+
+
+<a class="text-danger">  @Html.ValidationSummary() </a>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#checkedAll").change(function () {
+            if (this.checked) {
+                $(".checkSingle").each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $(".checkSingle").each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        $(".checkSingle").click(function () {
+            if ($(this).is(":checked")) {
+                var isAllChecked = 0;
+
+                $(".checkSingle").each(function () {
+                    if (!this.checked)
+                        isAllChecked = 1;
+                });
+
+                if (isAllChecked == 0) {
+                    $("#checkedAll").prop("checked", true);
+                }
+            }
+            else {
+                $("#checkedAll").prop("checked", false);
+            }
+        });
+    });
+</script>
+
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Eliminar").click(function () {
+            $("#ExampleModalLoading").modal("show");
+            var items = "<option value='0'></option>";
+            $('#valorMensaje').html(items);
+        });
+    });
+</script>
+
+<div class="tab-pane fade show" role="tabpanel">
+    <div class="row justify-content-center">
+        <div class="col-sm-11 offset-sm-2">
+            <!-- [##################################################################] -->
+            @using (Html.BeginForm("Registros", "ActualizaRegistros", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+
+                if (PerfilUsuario == 1)
+                {
+                    int fila = 0;
+
+                    <h5 class="align-self-lg-center">Total de registros cargados en el Servicio:</h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosServicio"] </h5>
+
+                    <br />
+                    <br />
+                    <h5 class="align-self-lg-center">Total de registros por validar: </h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosServicioPorValidar"] </h5>
+
+                    <!-- *************************REGISTROS INACTIVOS*************************************-->
+
+                    // Eliminados
+
+                    <!-- *************************REGISTROS A VALIDAR*************************************-->
+
+                    fila = 0;
+
+                    <br />
+                    <h4 class="align-self-lg-center">Detalle de registros cargados: </h4>
+                    <a asp-action="Excel" type="button" class="btn btn-secondary">Exporta a Excel</a>
+                    <br />
+                    <br />
+
+                    <h5 class="align-self-lg-center">Buscar Rut (sin DV): </h5>
+
+                    <br />
+                    <input type="text" id="searchString" class="align-self-sm-auto" name="searchString">
+                    <input type="submit" asp-action="Filtrar" class="btn-secondary" value="Filtrar" />
+                    <br />
+                    <br />
+
+                    <table id="tablaregistros" name="tablaregistros" width="3700" class="table-active table-bordered">
+                        <thead>
+                            <tr>
+                                <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
+                                <th id="Columna" name="Columna">Editar</th>
+                                <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Establecimiento</th>
+                                <th id="Columna" name="Columna">Administracion</th>
+                                <th id="Columna" name="Columna">Run</th>
+                                <th id="Columna" name="Columna">Nombre</th>
+                                <th id="Columna" name="Columna">Sexo</th>
+                                <th id="Columna" name="Columna">Fecha Nacimiento</th>
+                                <th id="Columna" name="Columna">Nacionalidad</th>
+                                <th id="Columna" name="Columna">Ley Contratación</th>
+                                <th id="Columna" name="Columna">Tipo de contrato</th>
+                                <th id="Columna" name="Columna">Categoría</th>
+                                <th id="Columna" name="Columna">Nivel Carrera</th>
+                                <th id="Columna" name="Columna">Profesión</th>
+                                <th id="Columna" name="Columna">Especialidad</th>
+                                <th id="Columna" name="Columna">Cargo</th>
+                                <th id="Columna" name="Columna">Asig. Chofer</th>
+                                <th id="Columna" name="Columna">Jornada</th>
+                                <th id="Columna" name="Columna">Años de Serv.</th>
+                                <th id="Columna" name="Columna">Fecha Ingreso</th>
+                                <th id="Columna" name="Columna">Bienios</th>
+                                <th id="Columna" name="Columna">Previsión</th>
+                                <th id="Columna" name="Columna">Isapre</th>
+                                <th id="Columna" name="Columna">Sueldo Base comunal</th>
+                                <th id="Columna" name="Columna">Total Haberes (sueldo bruto)</th>
+                                <th id="Columna" name="Columna">Validado</th>
+                                <th id="Columna" name="Columna">Revisado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registro in Model.Registros)
+                            {
+                                fila++;
+                                <tr>
+                                    <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID" }></td>
+                                    <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = registro.ID }, null)</td>
+                                    <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nombre) @Html.DisplayFor(modelRegistro => registro.Apellido_Paterno) @Html.DisplayFor(modelRegistro => registro.Apellido_Materno)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Sexo)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Nacimiento_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nacionalidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Ley)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_contrato)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Categoria)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nivel_Carrera)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Profesion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Especialidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Cargo)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Funciones_Chofer)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Jornada)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Anos_Servicio)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Ingreso_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Bienios)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Prevision)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Isapre)</td>
+                                    <td class="sBaseComunal">@Html.DisplayFor(modelRegistro => registro.SBase_Comunal)</td>
+                                    <td class="haberes">@Html.DisplayFor(modelRegistro => registro.Haberes)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ValidadoTexto)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.RevisadoTexto)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model.Registros, page => Url.Action("ActualizaRegistros", new
+                    {
+                        Pagina = page,
+                        TerminoBusqueda = Model.TerminoBusqueda
+                    }),
+                    new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" }
+                    })
+
+
+                    <hr />
+
+                    <div class="form-group">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Validar Registros
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Validar Registros</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Va a indicar que los registros seleccionados fueron validados por usted, esta acción no se puede deshacer ¿Indicar que los registros fueron validados?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-primary" asp-action="ActualizaRegistros">Si</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                if (PerfilUsuario == 2)
+
+                {
+                    int fila = 0;
+
+                    <h5 class="align-self-lg-center">Total de registros cargados por el Servicio:</h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosServicio"] </h5>
+                    <br />
+                    <br />
+                    <h5 class="align-self-lg-center">Total de registros cargados en la comuna del usuario: </h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosUsuario"] </h5>
+                    <br />
+                    <br />
+                    <h5 class="align-self-lg-center">Total de registros cargados en la comuna del usuario sin validar: </h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosUsuarioPorValidar"] </h5>
+
+                    <!-- *************************REGISTROS INACTIVOS*************************************-->
+
+                    // Eliminados
+
+                    <!-- *************************REGISTROS A VALIDAR*************************************-->
+
+                    <br />
+                    <h4 class="align-self-lg-center">Detalle de registros cargados: </h4>
+                    <a asp-action="Excel" type="button" class="btn btn-secondary" OnClientClick="this.disabled=true" UseSubmitBehavior="False">Exporta a Excel</a>
+                    <br />
+                    <br />
+
+                    <h5 class="align-self-lg-center">Buscar Rut (sin DV): </h5>
+                    <br />
+                    <input type="text" id="searchString" class="align-self-sm-auto" name="searchString">
+                    <input type="submit" asp-action="Filtrar" class="btn-secondary" value="Filtrar" />
+                    <br />
+                    <br />
+
+                    <table id="tablaregistros" name="tablaregistros" width="3700" class="table-active table-bordered">
+                        <thead>
+                            <tr>
+                                <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
+                                <th id="Columna" name="Columna">Editar</th>
+                                <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Establecimiento</th>
+                                <th id="Columna" name="Columna">Administracion</th>
+                                <th id="Columna" name="Columna">Run</th>
+                                <th id="Columna" name="Columna">Nombre</th>
+                                <th id="Columna" name="Columna">Sexo</th>
+                                <th id="Columna" name="Columna">Fecha Nacimiento</th>
+                                <th id="Columna" name="Columna">Nacionalidad</th>
+                                <th id="Columna" name="Columna">Ley Contratación</th>
+                                <th id="Columna" name="Columna">Tipo de contrato</th>
+                                <th id="Columna" name="Columna">Categoría</th>
+                                <th id="Columna" name="Columna">Nivel Carrera</th>
+                                <th id="Columna" name="Columna">Profesión</th>
+                                <th id="Columna" name="Columna">Especialidad</th>
+                                <th id="Columna" name="Columna">Cargo</th>
+                                <th id="Columna" name="Columna">Asig. Chofer</th>
+                                <th id="Columna" name="Columna">Jornada</th>
+                                <th id="Columna" name="Columna">Años de Serv.</th>
+                                <th id="Columna" name="Columna">Fecha Ingreso</th>
+                                <th id="Columna" name="Columna">Bienios</th>
+                                <th id="Columna" name="Columna">Previsión</th>
+                                <th id="Columna" name="Columna">Isapre</th>
+                                <th id="Columna" name="Columna">Sueldo Base comunal</th>
+                                <th id="Columna" name="Columna">Total Haberes (sueldo bruto)</th>
+                                <th id="Columna" name="Columna">Validado</th>
+                                <th id="Columna" name="Columna">Revisado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registro in Model.Registros)
+                            {
+                                fila++;
+                                <tr>
+                                    <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID"></td>
+                                    <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = @registro.ID }, null)</td>
+                                    <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nombre) @Html.DisplayFor(modelRegistro => registro.Apellido_Paterno) @Html.DisplayFor(modelRegistro => registro.Apellido_Materno)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Sexo)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Nacimiento_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nacionalidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Ley)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_contrato)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Categoria)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nivel_Carrera)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Profesion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Especialidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Cargo)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Funciones_Chofer)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Jornada)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Anos_Servicio)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Ingreso_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Bienios)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Prevision)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Isapre)</td>
+                                    <td class="sBaseComunal">@Html.DisplayFor(modelRegistro => registro.SBase_Comunal)</td>
+                                    <td class="haberes">@Html.DisplayFor(modelRegistro => registro.Haberes)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ValidadoTexto)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.RevisadoTexto)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model.Registros, page => Url.Action("ActualizaRegistros", new
+                    {
+                        Pagina = page,
+                        TerminoBusqueda = Model.TerminoBusqueda
+                    }),
+                    new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" }
+                    })
+
+                    <hr />
+
+                    <div class="form-group">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Revisar Registros
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Revisar Registros</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Va a indicar que los registros seleccionados fueron revisados por usted, esta acción no se puede deshacer ¿Indicar que los registros fueron revisados?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-primary" asp-action="ActualizaRegistros">Si</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalelimina">
+                            Eliminar Registros
+                        </button>
+                        <div class="modal fade" id="exampleModalelimina" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title text-danger" id="exampleModalLabel">Eliminar Registros</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Va a eliminar (desactivar) los registros seleccionados, esta acción no se puede deshacer ¿Eliminar (desactivar) registro?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-danger" asp-action="EliminaRegistros">Si</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                if (PerfilUsuario == 3)
+                {
+
+                    int fila = 0;
+
+                    <h5 class="align-self-lg-center">Total de registros cargados a nivel MINSAL:</h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosMinsal"] </h5>
+                    <br />
+                    <br />
+                    <h5 class="align-self-lg-center">Total de registros por validar: </h5>
+                    <hr />
+                    <h5 class="align-self-lg-center">@ViewData["TotalRegistrosMinsalPorValidar"] </h5>
+
+                    <!-- *************************REGISTROS INACTIVOS*************************************-->
+
+                    // Eliminados
+
+                    <!-- *************************REGISTROS A VALIDAR*************************************-->
+
+                    fila = 0;
+
+                    <br />
+                    <h4 class="align-self-lg-center">Detalle de registros cargados: </h4>
+                    <a asp-action="Excel" type="button" class="btn btn-secondary">Exporta a Excel</a>
+                    <br />
+                    <br />
+
+                    <h5 class="align-self-lg-center">Buscar Rut (sin DV): </h5>
+                    <br />
+                    <input type="text" id="searchString" class="align-self-sm-auto" name="searchString">
+                    <input type="submit" asp-action="Filtrar" class="btn-secondary" value="Filtrar" />
+                    <br />
+                    <br />
+
+                    <table id="tablaregistros" name="tablaregistros" width="3700" class="table-active table-bordered">
+                        <thead>
+                            <tr>
+                                <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
+                                <th id="Columna" name="Columna">Editar</th>
+                                <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Establecimiento</th>
+                                <th id="Columna" name="Columna">Administracion</th>
+                                <th id="Columna" name="Columna">Run</th>
+                                <th id="Columna" name="Columna">Nombre</th>
+                                <th id="Columna" name="Columna">Sexo</th>
+                                <th id="Columna" name="Columna">Fecha Nacimiento</th>
+                                <th id="Columna" name="Columna">Nacionalidad</th>
+                                <th id="Columna" name="Columna">Ley Contratación</th>
+                                <th id="Columna" name="Columna">Tipo de contrato</th>
+                                <th id="Columna" name="Columna">Categoría</th>
+                                <th id="Columna" name="Columna">Nivel Carrera</th>
+                                <th id="Columna" name="Columna">Profesión</th>
+                                <th id="Columna" name="Columna">Especialidad</th>
+                                <th id="Columna" name="Columna">Cargo</th>
+                                <th id="Columna" name="Columna">Asig. Chofer</th>
+                                <th id="Columna" name="Columna">Jornada</th>
+                                <th id="Columna" name="Columna">Años de Serv.</th>
+                                <th id="Columna" name="Columna">Fecha Ingreso</th>
+                                <th id="Columna" name="Columna">Bienios</th>
+                                <th id="Columna" name="Columna">Previsión</th>
+                                <th id="Columna" name="Columna">Isapre</th>
+                                <th id="Columna" name="Columna">Sueldo Base comunal</th>
+                                <th id="Columna" name="Columna">Total Haberes (sueldo bruto)</th>
+                                <th id="Columna" name="Columna">Validado</th>
+                                <th id="Columna" name="Columna">Revisado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var registro in Model.Registros)
+                            {
+                                fila++;
+                                <tr>
+                                    <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID" }></td>
+                                    <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = @registro.ID }, null)</td>
+                                    <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nombre) @Html.DisplayFor(modelRegistro => registro.Apellido_Paterno) @Html.DisplayFor(modelRegistro => registro.Apellido_Materno)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Sexo)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Nacimiento_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nacionalidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Ley)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_contrato)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Categoria)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Nivel_Carrera)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Profesion)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Especialidad)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Cargo)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Funciones_Chofer)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Jornada)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Anos_Servicio)</td>
+                                    <td>@Convert.ToDateTime(registro.Fecha_Ingreso_Texto).ToString("dd/MM/yyyy")</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Bienios)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Prevision)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.Tipo_Isapre)</td>
+                                    <td class="sBaseComunal">@Html.DisplayFor(modelRegistro => registro.SBase_Comunal)</td>
+                                    <td class="haberes">@Html.DisplayFor(modelRegistro => registro.Haberes)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ValidadoTexto)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.RevisadoTexto)</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Html.PagedListPager(Model.Registros, page => Url.Action("ActualizaRegistros", new
+                    {
+                        Pagina = page,
+                        TerminoBusqueda = Model.TerminoBusqueda
+                    }),
+                    new PagedListRenderOptions
+                    {
+                        LiElementClasses = new string[] { "page-item" },
+                        PageClasses = new string[] { "page-link" }
+                    })
+
+                    <hr />
+                    <div class="form-group">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                            Validar Registros
+                        </button>
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Validar Registros</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Va a indicar que los registros seleccionados fueron validados por usted, esta acción no se puede deshacer ¿Indicar que los registros fueron validados?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                        <button type="submit" class="btn btn-primary" asp-action="ActualizaRegistros">Si</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                }
+                <br />
+                <br />
+                <hr />
+                <div>
+                    <a asp-controller="Home" asp-action="Index">Volver</a>
+                </div>
+                <hr />
+            }
+            <!-- [##################################################################] -->
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{await Html.RenderPartialAsync("~/Views/ActualizaRegistros/js/_actualizaRegistrosJS.cshtml");}
+}

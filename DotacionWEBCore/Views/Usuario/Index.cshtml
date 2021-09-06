@@ -1,0 +1,254 @@
+﻿@model DotacionWEBCore.ViewModels.ListadoViewModel<DotacionWEBCore.Models.UsuarioFull>
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Mvc.Core.Common
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Listado de Usuarios - Total: " + Model.Registros.TotalItemCount + " Usuarios";
+}
+
+<div class="tab-pane fade show" role="tabpanel">
+    <div class="row justify-content-center">
+        <div class="col-sm-11 offset-sm-2">
+            <!-- [##################################################################] -->
+            <h2>@ViewData["Title"]</h2>
+            <div class="row mb-3">
+                <div class="col-md-3">
+                    <a asp-action="Create" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Crear nuevo Usuario
+                    </a>
+                </div>
+                <div class="col-md-3">
+                    <a asp-controller="Roles" asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-users"></i> Administrar Perfiles
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <form asp-action="Index" method="get">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input asp-for="TerminoBusqueda" class="form-control form-control-sm bg-dark text-white" />
+                            </div>
+                            <div class="col-md-4">
+                                <button name="botonBusqueda" id="botonBusqueda" type="submit" class="btn btn-info btn-sm">
+                                    <i class="fas fa-search"></i> Buscar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <table class="table table-striped table-hover table-sm">
+                <thead class="bg-primary text-white text-center">
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].UsuarioNombre)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].ApellidoPaterno)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].ApellidoMaterno)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].UserName)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].FechaNacimiento)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].Sexo)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].Nacionalidad)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].Email)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].PhoneNumber)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].ServicioName)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].ComunaName)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].RoleName)
+                        </th>
+                        <th class="text-center">
+                            @Html.DisplayNameFor(model => model.Registros[0].LockoutEnabled)
+                        </th>
+                        <th class="text-center">Detalle</th>
+                        <th class="text-center">Editar</th>
+                        <!--<th class="text-center">Eliminar</th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var x = 1;
+                        var noAplica = "N/A";
+                        var sinRegistros = "Sin Registros";
+                    }
+                    @foreach (var usuario in Model.Registros)
+                    {
+                        <tr>
+                            <td class="text-center">
+                                @x
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.UsuarioNombre == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.UsuarioNombre)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.ApellidoMaterno == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.ApellidoPaterno)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.ApellidoMaterno == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.ApellidoMaterno)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelUsuario => usuario.UserName)
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.FechaNacimiento == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.FechaNacimiento)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.Sexo == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.Sexo)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.Nacionalidad == null)
+                                {
+                                    @sinRegistros
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.Nacionalidad)
+                                }
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelUsuario => usuario.Email)
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelUsuario => usuario.PhoneNumber)
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.ID_Perfil == 3)
+                                {
+                                    @noAplica
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.ServicioName)
+                                }
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.ID_Perfil == 3)
+                                {
+                                    @noAplica
+                                }
+                                else
+                                {
+                                    @Html.DisplayFor(modelUsuario => usuario.ComunaName)
+                                }
+
+                            </td>
+                            <td class="text-center">
+                                @Html.DisplayFor(modelUsuario => usuario.RoleName)
+                            </td>
+                            <td class="text-center">
+                                @if (usuario.LockoutEnabled == true && usuario.LockoutEnd > DateTime.Now)
+                                {
+                                    <span class="badge badge-pill badge-danger">Inhabilitado</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-pill badge-success">Habilitado</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@usuario.Id">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </td>
+                            <td class="text-center">
+                                <a class="btn btn-secondary btn-sm" asp-action="Edit" asp-route-id="@usuario.Id">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </a>
+                            </td>
+                            <!--
+                    <td class="text-center">
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@usuario.Id">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    -->
+                        </tr>
+                        x++;
+                    }
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model.Registros, page => Url.Action("Index", new
+            {
+                Pagina = page,
+                TerminoBusqueda = Model.TerminoBusqueda
+            }),
+                new PagedListRenderOptions
+                {
+                    LiElementClasses = new string[] { "page-item" },
+                    PageClasses = new string[] { "page-link" }
+            })
+        <form method="post" asp-controller="Usuario" asp-action="ExportUserExcel">
+            <input type="hidden" asp-for="TerminoBusqueda" />
+            <button type="submit" class="btn btn-success">Exportar a Excel</button>
+        </form>
+            <!-- [##################################################################] -->
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

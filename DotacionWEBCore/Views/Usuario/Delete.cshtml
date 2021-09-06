@@ -1,0 +1,19 @@
+﻿@model DotacionWEBCore.ViewModels.UsuarioDeleteViewModel
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+}
+
+<h3>¿Estás seguro que deseas eliminar al Usuario <strong>@Model.UserName</strong>?</h3>
+<hr />
+<div>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash-alt"></i> Eliminar
+        </button>
+        <a asp-action="Index" class="btn btn-info">
+            <i class="fas fa-undo"></i> Regresar
+        </a>
+    </form>
+</div>
+

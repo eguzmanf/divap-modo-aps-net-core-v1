@@ -1,0 +1,40 @@
+﻿@model DotacionWEBCore.Models.Role
+@{
+    ViewData["Title"] = "Detalles del Perfil " + Model.Nombre;
+}
+
+<div class="tab-pane fade show" role="tabpanel">
+    <div class="row justify-content-center">
+        <div class="col-sm-11 offset-sm-2">
+            <!-- [##################################################################] -->
+            <h3>@ViewData["Title"]</h3>
+            <div>
+                <hr />
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Id):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Id)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(model => model.Nombre):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(model => model.Nombre)
+                    </dd>
+                </dl>
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-success">
+                    <i class="fas fa-pencil-alt"></i> Editar
+                </a>
+                <a asp-action="Index" class="btn btn-info">
+                    <i class="fas fa-undo"></i> Regresar
+                </a>
+            </div>
+            <!-- [##################################################################] -->
+        </div>
+    </div>
+</div>

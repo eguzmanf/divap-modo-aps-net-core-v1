@@ -1,0 +1,379 @@
+﻿@*@model DotacionWEBCore.Models.ListaRegistros*@
+@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+@{
+    ViewData["Title"] = "ActualizaRegistros1";
+    int PerfilUsuario = ViewBag.ID_PerfilUsuario;
+}
+
+
+<Head>
+    <environment include="Development">
+        <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    </environment>
+
+    <environment include="Production">
+        <link href="~/lib/bootstrap/dist/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="~/vendor/fontawesome-free/css/all.css" rel="stylesheet" />
+    </environment>
+
+</Head>
+
+<h1>Retiro Voluntario</h1>
+<h4>Revise e indique los postulantes a retiro voluntario</h4>
+<h5 class="align-self-lg-center">Perfil: @ViewData["Perfil"]</h5>
+<h5 class="align-self-lg-center">@ViewData["ID"]</h5>
+<br />
+
+
+
+
+<a class="text-danger">  @Html.ValidationSummary() </a>
+<script src="/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $("#checkedAll").change(function () {
+            if (this.checked) {
+                $(".checkSingle").each(function () {
+                    this.checked = true;
+                });
+            } else {
+                $(".checkSingle").each(function () {
+                    this.checked = false;
+                });
+            }
+        });
+
+        $(".checkSingle").click(function () {
+            if ($(this).is(":checked")) {
+                var isAllChecked = 0;
+
+                $(".checkSingle").each(function () {
+                    if (!this.checked)
+                        isAllChecked = 1;
+                });
+
+                if (isAllChecked == 0) {
+                    $("#checkedAll").prop("checked", true);
+                }
+            }
+            else {
+                $("#checkedAll").prop("checked", false);
+            }
+        });
+    });
+</script>
+
+
+@using (Html.BeginForm("Registros", "IncentivoRetiro", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+
+    if (PerfilUsuario == 1)
+    {
+
+        int fila = 0;
+
+        <h5 class="align-self-lg-center">Total de registros que cumplen criterio para postular a retiro voluntario cargados en el Servicio:</h5>
+        <hr />
+        <h5 class="align-self-lg-center">@ViewData["TotalRegistrosServicio"] </h5>
+
+
+        <br />
+        <h4 class="align-self-lg-center">Detalle de registros cargados que cumplen criterio para postular a retiro voluntario: </h4>
+        <a asp-action="Excel" type="button" class="btn btn-secondary">Exporta a Excel</a>
+        <br />
+        <br />
+
+
+        <h5 class="align-self-lg-center">Buscar Rut (sin DV): </h5>
+
+
+        <br />
+        <input type="text" id="searchString" class="align-self-sm-auto" name="searchString">
+        <input type="submit" asp-action="Filtrar" class="btn-secondary" value="Filtrar" />
+        <br />
+        <br />
+
+        <table id="tablaregistros" name="tablaregistros" width="3700" class="table-active table-bordered">
+            <thead>
+                <tr>
+
+                    <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
+                    <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                    <th id="Columna" name="Columna">Servicio</th>
+                    <th id="Columna" name="Columna">Comuna</th>
+                    <th id="Columna" name="Columna">Establecimiento</th>
+                    <th id="Columna" name="Columna">Administracion</th>
+                    <th id="Columna" name="Columna">Rut</th>
+                    <th id="Columna" name="Columna">Nombre</th>
+                    <th id="Columna" name="Columna">Sexo</th>
+                    <th id="Columna" name="Columna">Fecha Nacimiento</th>
+                    <th id="Columna" name="Columna">Nacionalidad</th>
+                    <th id="Columna" name="Columna">Categoría</th>
+                    <th id="Columna" name="Columna">Profesión</th>
+                    <th id="Columna" name="Columna">Especialidad</th>
+                    <th id="Columna" name="Columna">Cargo</th>
+                    <th id="Columna" name="Columna">Asig. Chofer</th>
+                    <th id="Columna" name="Columna">Contratación</th>
+                    <th id="Columna" name="Columna">Tipo de contrato</th>
+                    <th id="Columna" name="Columna">Jornada</th>
+                    <th id="Columna" name="Columna">Fecha Ingreso</th>
+                    <th id="Columna" name="Columna">Años de Serv.</th>
+                    <th id="Columna" name="Columna">Bienios</th>
+                    <th id="Columna" name="Columna">Carrera Func.</th>
+                    <th id="Columna" name="Columna">Previsión</th>
+                    <th id="Columna" name="Columna">Isapre</th>
+                    <th id="Columna" name="Columna">Base comunal</th>
+                    <th id="Columna" name="Columna">Haberes</th>
+                    <th id="Columna" name="Columna">Validado</th>
+                    <th id="Columna" name="Columna">Revisado</th>
+                    <th id="Columna" name="Columna">Postula Retiro</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in ViewBag.Resultados)
+                {
+
+
+                    fila++;
+                    <tr>
+
+                        <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@item.ID" }></td>
+                        <td bgcolor="grey">@fila</td>
+                        <td>@item.Servicio</td>
+                        <td>@item.Comuna</td>
+                        <td>@item.Establecimiento</td>
+                        <td>@item.Administracion</td>
+                        <td>@item.Rut-@item.DV</td>
+                        <td>@item.Nombre @item.Apellido_Paterno @item.Apellido_Materno</td>
+                        <td>@item.Sexo</td>
+                        <td>@item.Fecha_Nacimiento_Texto</td>
+                        <td>@item.Nacionalidad</td>
+                        <td>@item.Categoria</td>
+                        <td>@item.Profesion</td>
+                        <td>@item.Especialidad</td>
+                        <td>@item.Cargo</td>
+                        <td>@item.Funciones_Chofer</td>
+                        <td>@item.Ley</td>
+                        <td>@item.Tipo_contrato</td>
+                        <td>@item.Jornada</td>
+                        <td>@item.Fecha_Ingreso_Texto</td>
+                        <td>@item.Anos_Servicio</td>
+                        <td>@item.Bienios</td>
+                        <td>@item.Nivel_Carrera</td>
+                        <td>@item.Tipo_Prevision</td>
+                        <td>@item.Tipo_Isapre</td>
+                        <td>@item.SBase_Comunal</td>
+                        <td>@item.Haberes</td>
+                        <td>@item.ValidadoTexto</td>
+                        <td>@item.RevisadoTexto</td>
+                        <td>@item.PostulaRetiroTexto</td>
+
+
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+
+
+        <hr />
+
+        <div class="form-group">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+               Postular funcionarios
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Enviar Postulación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Va a indicar que los registros seleccionados se postularan a retiro voluntario, esta acción no se puede deshacer ¿Indicar que los registros fueron enviados a postular?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary" asp-action="PostulaRetiroRegistros">Si</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+
+    }
+    if (PerfilUsuario == 2)
+
+    {
+        int fila = 0;
+
+        <h5 class="align-self-lg-center">Total de registros que cumplen criterio para postular a retiro voluntario cargados en el Servicio:</h5>
+        <hr />
+        <h5 class="align-self-lg-center">@ViewData["TotalRegistrosServicio"] </h5>
+        <br />
+        <br />
+        <h5 class="align-self-lg-center">Total de registros que cumplen criterio para postular a retiro voluntario cargados en la comuna:</h5>
+        <hr />
+        <h5 class="align-self-lg-center">@ViewData["TotalRegistrosUsuario"] </h5>
+        <br />
+        <br />
+        <br />
+        <h4 class="align-self-lg-center">Detalle de registros cargados que cumplen criterio para postular a retiro voluntario: </h4>
+        <a asp-action="Excel" type="button" class="btn btn-secondary" OnClientClick="this.disabled=true" UseSubmitBehavior="False">Exporta a Excel</a>
+        <br />
+        <br />
+
+
+        <h5 class="align-self-lg-center">Buscar Rut (sin DV): </h5>
+        <br />
+        <input type="text" id="searchString" class="align-self-sm-auto" name="searchString">
+        <input type="submit" asp-action="Filtrar" class="btn-secondary" value="Filtrar" />
+        <br />
+        <br />
+
+
+
+        <table id="tablaregistros" name="tablaregistros" width="3700" class="table-active table-bordered">
+            <thead>
+                <tr>
+                    <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
+                    <th id="Columna" name="Columna">Actualizar</th>
+                    <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                    <th id="Columna" name="Columna">Servicio</th>
+                    <th id="Columna" name="Columna">Comuna</th>
+                    <th id="Columna" name="Columna">Establecimiento</th>
+                    <th id="Columna" name="Columna">Administracion</th>
+                    <th id="Columna" name="Columna">Rut</th>
+                    <th id="Columna" name="Columna">Nombre</th>
+                    <th id="Columna" name="Columna">Sexo</th>
+                    <th id="Columna" name="Columna">Fecha Nacimiento</th>
+                    <th id="Columna" name="Columna">Nacionalidad</th>
+                    <th id="Columna" name="Columna">Categoría</th>
+                    <th id="Columna" name="Columna">Profesión</th>
+                    <th id="Columna" name="Columna">Especialidad</th>
+                    <th id="Columna" name="Columna">Cargo</th>
+                    <th id="Columna" name="Columna">Asig. Chofer</th>
+                    <th id="Columna" name="Columna">Contratación</th>
+                    <th id="Columna" name="Columna">Tipo de contrato</th>
+                    <th id="Columna" name="Columna">Jornada</th>
+                    <th id="Columna" name="Columna">Fecha Ingreso</th>
+                    <th id="Columna" name="Columna">Años de Serv.</th>
+                    <th id="Columna" name="Columna">Bienios</th>
+                    <th id="Columna" name="Columna">Carrera Func.</th>
+                    <th id="Columna" name="Columna">Previsión</th>
+                    <th id="Columna" name="Columna">Isapre</th>
+                    <th id="Columna" name="Columna">Base comunal</th>
+                    <th id="Columna" name="Columna">Haberes</th>
+                    <th id="Columna" name="Columna">Validado</th>
+                    <th id="Columna" name="Columna">Revisado</th>
+                    <th id="Columna" name="Columna">Postula Retiro</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+                @foreach (var item in ViewBag.Resultados)
+                {
+                    fila++;
+
+
+                    <tr>
+                        <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@item.ID" }></td>
+                        <td>@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = @item.ID }, null) | @Html.ActionLink("Eliminar", "EliminaRegistros", "EliminaRegistros", new { ID = @item.ID }, null)</td>
+                        <td bgcolor="grey">@fila</td>
+                        <td>@item.Servicio</td>
+                        <td>@item.Comuna</td>
+                        <td>@item.Establecimiento</td>
+                        <td>@item.Administracion</td>
+                        <td>@item.Rut-@item.DV</td>
+                        <td>@item.Nombre @item.Apellido_Paterno @item.Apellido_Materno</td>
+                        <td>@item.Sexo</td>
+                        <td>@item.Fecha_Nacimiento_Texto</td>
+                        <td>@item.Nacionalidad</td>
+                        <td>@item.Categoria</td>
+                        <td>@item.Profesion</td>
+                        <td>@item.Especialidad</td>
+                        <td>@item.Cargo</td>
+                        <td>@item.Funciones_Chofer</td>
+                        <td>@item.Ley</td>
+                        <td>@item.Tipo_contrato</td>
+                        <td>@item.Jornada</td>
+                        <td>@item.Fecha_Ingreso_Texto</td>
+                        <td>@item.Anos_Servicio</td>
+                        <td>@item.Bienios</td>
+                        <td>@item.Nivel_Carrera</td>
+                        <td>@item.Tipo_Prevision</td>
+                        <td>@item.Tipo_Isapre</td>
+                        <td>@item.SBase_Comunal</td>
+                        <td>@item.Haberes</td>
+                        <td>@item.ValidadoTexto</td>
+                        <td>@item.RevisadoTexto</td>
+                        <td>@item.PostulaRetiroTexto</td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+        <hr />
+
+        <div class="form-group">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Postular funcionarios
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Enviar Postulación</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Va a indicar que los registros seleccionados se postularan a retiro voluntario, esta acción no se puede deshacer ¿Indicar que los registros fueron enviados a postular?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                            <button type="submit" class="btn btn-primary" asp-action="PostulaRetiroRegistros">Si</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+
+    }
+
+
+
+    <br />
+    <br />
+    <hr />
+
+    <div>
+        <a asp-controller="Home" asp-action="Index">Volver</a>
+    </div>
+    <hr />
+
+
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

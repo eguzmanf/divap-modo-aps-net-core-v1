@@ -1,0 +1,73 @@
+﻿<script type="module">
+
+    import { FuncionesGenerales } from "../../app/js/funciones-generales/funciones-generales.js";
+    //
+    import { AppEditarUsuario } from "../../app/js/usuario/editar/app-editar.js";
+    import { UiEditarUsuario } from "../../app/js/usuario/editar/ui-editar.js";
+    import { ApiEditarUsuario } from "../../app/js/usuario/editar/api-editar.js";
+
+    // ########################################### DEFINICION DE VAR ###########################################
+
+    var urlGetComuna = '@Url.Content("~/")' + "Usuario/GetComunasEdit";
+    var urlGetJsonUsuario = '@Url.Content("~/")' + "Usuario/GetJsonUsuario";
+    var urlGetComunaDelServicio = '@Url.Content("~/")' + "Usuario/GetComunaDelServicioEdit";
+
+    // ################################# INICIALIZAR CLASES - FUNCION DE INIT CAMPOS ##################################
+
+    const metodos = new FuncionesGenerales();
+
+    const api = new ApiEditarUsuario(urlGetComuna, urlGetJsonUsuario, urlGetComunaDelServicio);
+    const ui = new UiEditarUsuario(metodos, api);
+    const app = new AppEditarUsuario(metodos, ui, api);
+
+    function initDOM() {
+        app.initApp();
+    }
+
+    function domIsReady() {
+        app.domIsReadyApp();
+    }
+
+    // ##################################### INICIAR: CARGAR CONTENIDO DOM HTML #######################################
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDOM();
+    });
+
+    document.onreadystatechange = () => {
+        domIsReady();
+    };
+
+    // ####################################### LLAMAR FUNCIONES #######################################################
+
+    datetimePicker();
+    app.sendFormSubmit();
+    app.mostrarCampos();
+    app.enabledOrDisableUser();
+    ui.checkNumeros();
+
+    // ########################################### FUNCIONES ##########################################################
+
+    function datetimePicker() {
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'far fa-clock',
+                date: 'far fa-calendar-alt',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'fas fa-trash',
+                close: 'fas fa-times'
+            }
+        });
+
+        $('#fechaNacimientoUsuario').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY',
+        });
+    }
+
+</script>
+

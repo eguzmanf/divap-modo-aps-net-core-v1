@@ -1,0 +1,139 @@
+﻿@model DotacionWEBCore.ViewModels.UsuariosExtendidoDetailsViewModel
+@{
+    ViewData["Title"] = "Detalle del Usuario: " + Model.Detalle.UserName;
+}
+<div class="tab-pane fade show" role="tabpanel">
+    <div class="row justify-content-center">
+        <div class="col-sm-11 offset-sm-2">
+            <!-- [##################################################################] -->
+            <h3>@ViewData["Title"]</h3>
+            <hr />
+            <div>
+                <dl class="row">
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.Id):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.Id)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.Nombres):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.Nombres)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.ApellidoPaterno):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.ApellidoPaterno)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.ApellidoMaterno):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.ApellidoMaterno)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.UserName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.UserName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.Rut):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.Rut)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.FechaNacimiento):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.FechaNacimiento)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.GeneroName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.GeneroName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Extended.NacionalidadName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Extended.NacionalidadName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.Email):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.Email)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.PhoneNumber):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.PhoneNumber)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.ServicioName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.ServicioName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.ComunaName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.ComunaName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.RoleName):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @Html.DisplayFor(d => d.Detalle.RoleName)
+                    </dd>
+
+                    <dt class="col-sm-4">
+                        @Html.DisplayNameFor(t => t.Detalle.LockoutEnabled):
+                    </dt>
+                    <dd class="col-sm-8">
+                        @*@Html.DisplayFor(d => d.Detalle.LockoutEnabled)*@
+                        @if (Model.Detalle.LockoutEnabled == true && Model.Detalle.LockoutEnd > DateTime.Now)
+                        {
+                            <span class="badge badge-pill badge-danger">Inhabilitado</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-pill badge-success">Habilitado</span>
+                        }
+                    </dd>
+
+                </dl>
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.Detalle.Id" class="btn btn-success">
+                    <i class="fas fa-pencil-alt"></i> Editar
+                </a>
+                <a asp-action="Index" class="btn btn-info">
+                    <i class="fas fa-undo"></i> Regresar
+                </a>
+            </div>
+            <!-- [##################################################################] -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+
+    <ul class="navbar-nav">
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <!--
+            <li class="nav-item">
+                <a id="manage" class="btn btn-link text-dark">Usuario: @UserManager.GetUserName(User) [@ViewBag.Rol]</a>
+            </li>
+            -->
+            <li class="nav-item dropdown text-danger">
+                <a class="nav-link dropdown-toggle text-white bg-primary active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i> Usuario: @UserManager.GetUserName(User) [@ViewBag.Rol]
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="PerfilUsuario">Perfil</a>
+                    <a class="dropdown-item text-white" asp-controller="Usuario" asp-action="ChangeOwnPasswordByTheUser">Cambiar Contraseña</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button id="logout" type="submit" class="btn btn-link text-white">Salir</button>
+                        </form>
+                    </a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                    <button id="logout" type="submit" class="btn btn-link text-dark">Salir</button>
+                </form>
+            </li>
+        }
+        else
+        {
+            /*
+             <li class="nav-item">
+                                   <a class="text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register </a>
+                               </li>
+              */
+
+            <li class="nav-item">
+                <a class="text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Ingresar</a>
+            </li>
+
+        }
+
+    </ul>

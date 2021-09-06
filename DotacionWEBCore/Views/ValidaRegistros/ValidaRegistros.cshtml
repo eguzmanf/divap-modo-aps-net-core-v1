@@ -1,0 +1,23 @@
+﻿@model DotacionWEBCore.Models.ListaModelo
+@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+
+@{
+    ViewData["Title"] = "ValidaRegistros1";
+}
+
+
+
+<h1>Valida contratos</h1>
+<h4>Valida los contratos registrados</h4>
+<br />
+
+<hr />
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Volver</a>
+</div>
+<hr />
+

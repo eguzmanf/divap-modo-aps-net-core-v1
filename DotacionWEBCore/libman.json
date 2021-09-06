@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "unpkg",
+      "library": "font-awesome-5-css@5.4.1",
+      "destination": "wwwroot/font-awesome-5-css/"
+    },
+    {
+      "library": "moment.js@2.29.1",
+      "destination": "wwwroot/lib/moment.js/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "tempusdominus-bootstrap-4@5.39.0",
+      "destination": "wwwroot/lib/tempusdominus-bootstrap-4/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "sweetalert2@10.16.7",
+      "destination": "wwwroot/lib/sweetalert2/"
+    },
+    {
+      "library": "promise-polyfill@8.2.0",
+      "destination": "wwwroot/lib/promise-polyfill/"
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+﻿<script type="module">
+
+    import { FuncionesGenerales } from "../../app/js/funciones-generales/funciones-generales.js";
+    //
+    import { AppEditaRegistros } from "../../app/js/edita-registros/editar/app-edita-registros.js";
+    import { UiEditaRegistros } from "../../app/js/edita-registros/editar/ui-edita-registros.js";
+    import { ApiEditaRegistros } from "../../app/js/edita-registros/editar/api-edita-registros.js";
+
+    // ########################################### DEFINICION DE VAR ###########################################
+        //
+    var urlGetComunasByServicioChange = '@Url.Content("~/")' + "EditaRegistros/GetComunasByServicioChange";
+    var urlGetEstablecimientosByComunasChange = '@Url.Content("~/")' + "EditaRegistros/GetEstablecimientosByComunasChange";
+    var urlGetContrato = '@Url.Content("~/")' + "EditaRegistros/GetTipoContrato";
+    var urlGetCategorias = '@Url.Content("~/")' + "EditaRegistros/GetTipoCategorias";
+    var urlNivelCarrera = '@Url.Content("~/")' + "EditaRegistros/GetNivelCarrera";
+    var urlGetProfesion = '@Url.Content("~/")' + "EditaRegistros/GetProfesion";
+    //
+    var urlGetTipoCategoriaChange = '@Url.Content("~/")' + "EditaRegistros/GetTipoCategoriaChange";
+    var urlGetTipoEspecialidadProfesionChange = '@Url.Content("~/")' + "EditaRegistros/GetTipoEspecialidadProfesionChange";
+    var urlGetAsignacionChoferAmbulanciaChange = '@Url.Content("~/")' + "EditaRegistros/GetAsignacionChoferAmbulancia";
+
+    // ################################# INICIALIZAR CLASES - FUNCION DE INIT CAMPOS ###########################
+
+    const metodos = new FuncionesGenerales();
+
+    const api = new ApiEditaRegistros(urlGetComunasByServicioChange, urlGetEstablecimientosByComunasChange, urlGetContrato, urlGetCategorias, urlNivelCarrera, urlGetProfesion, urlGetTipoCategoriaChange, urlGetTipoEspecialidadProfesionChange, urlGetAsignacionChoferAmbulanciaChange);
+    const ui = new UiEditaRegistros(metodos, api);
+    const app = new AppEditaRegistros(metodos, ui, api);
+
+    function initDOM() {
+        app.initApp();
+    }
+
+    function domIsReady() {
+        app.domIsReadyApp();
+    }
+
+    // ##################################### INICIAR: CARGAR CONTENIDO DOM HTML #######################################
+
+    document.addEventListener('DOMContentLoaded', () => {
+        initDOM();
+    });
+
+    document.onreadystatechange = () => {
+        domIsReady();
+    };
+
+    // ####################################### LLAMAR FUNCIONES #######################################################
+    //
+    datetimePicker();
+    app.getComunaServicioChange();
+    app.getEstablecimientoComunaChange();
+    app.getContratoCategoriaNivelCarreraProfesionByLeyCange();
+    app.getCategoriaChange();
+    app.getEspecialidadChange();
+    app.getAsignacionChoferAmbulanciaChange();
+    app.baseComunalFormat();
+    app.totalHaberesFormat();
+    app.aspValidationSummaryAllCloseModal();
+
+    // ########################################### FUNCIONES ##########################################################
+    //
+    function datetimePicker() {
+        $.fn.datetimepicker.Constructor.Default = $.extend({}, $.fn.datetimepicker.Constructor.Default, {
+            icons: {
+                time: 'far fa-clock',
+                date: 'far fa-calendar-alt',
+                up: 'fas fa-arrow-up',
+                down: 'fas fa-arrow-down',
+                previous: 'fas fa-chevron-left',
+                next: 'fas fa-chevron-right',
+                today: 'fas fa-calendar-check',
+                clear: 'fas fa-trash',
+                close: 'fas fa-times'
+            }
+        });
+
+        $('#fechaNacimientoFuncionario').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY',
+        });
+
+        $('#fechaIngresoFuncionario').datetimepicker({
+            locale: 'es',
+            format: 'DD/MM/YYYY',
+        });
+    }
+
+</script>

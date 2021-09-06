@@ -1,0 +1,103 @@
+﻿@model DotacionWEBCore.Models.ListaModelo
+@using System.Data;
+@using Microsoft.AspNetCore.Identity
+@using DotacionWEBCore.Areas.Identity.Data
+
+@inject SignInManager<DotacionWEBCoreUser> SignInManager
+@inject UserManager<DotacionWEBCoreUser> UserManager
+
+@{
+    ViewData["Title"] = "Monitoreo";
+}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<h1>Monitorear Avances</h1>
+<h4>Reportes y buscador de Registros ingresados</h4>
+<br />
+<br />
+
+@using (Html.BeginForm("Registros", "Monitoreo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <h5 class="align-self-lg-center">Total de registros cargados por el Servicio: </h5>
+    <hr />
+    <h5 class="align-self-lg-center">@ViewData["TotalRegistros"] </h5>
+    <br />
+    <br />
+    <h5 class="align-self-lg-center">Total de registros cargados: </h5>
+    <hr />
+    <h5 class="align-self-lg-center">@ViewData["RegistrosComunaServicio"] </h5>
+
+    <br />
+    <h4 class="align-self-lg-center">Detalle de registros cargados: </h4>
+    <br />
+    <table id="tablaregistros" name="tablaregistros" width="200" class="table-active table-bordered">
+        <thead>
+            <tr>
+                <th id="Columna" name="Columna">Registro N°</th>
+                <th id="Columna" name="Columna">Rut</th>
+                <th id="Columna" name="Columna">Comuna</th>
+                <th id="Columna" name="Columna">Establecimiento</th>
+                <th id="Columna" name="Columna">Nombre</th>
+                <th id="Columna" name="Columna">Categoría</th>
+                <th id="Columna" name="Columna">Profesión</th>
+                <th id="Columna" name="Columna">Especialidad</th>
+                <th id="Columna" name="Columna">Cargo</th>
+                <th id="Columna" name="Columna">Asig. Chofer</th>
+                <th id="Columna" name="Columna">Contratación</th>
+                <th id="Columna" name="Columna">Tipo de contrato</th>
+                <th id="Columna" name="Columna">Jornada</th>
+                <th id="Columna" name="Columna">Fecha Ingreso</th>
+                <th id="Columna" name="Columna">Años de Serv.</th>
+                <th id="Columna" name="Columna">Bienios</th>
+                <th id="Columna" name="Columna">Carrera Func.</th>
+                <th id="Columna" name="Columna">Base comunal</th>
+                <th id="Columna" name="Columna">Haberes</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in ViewBag.Resultados)
+            {
+            <tr>
+                <td>@item.ID_Registro</td>
+                <td>@item.Rut-@item.DV</td>
+                <td>@item.Comuna</td>
+                <td>@item.Establecimiento</td>
+                <td>@item.Nombre @item.Apellido_Paterno @item.Apellido_Materno</td>
+                <td>@item.Categoria</td>
+                <td>@item.Profesion</td>
+                <td>@item.Especialidad</td>
+                <td>@item.Cargo</td>
+                <td>@item.Funciones_Chofer</td>
+                <td>@item.Ley</td>
+                <td>@item.Tipo_contrato</td>
+                <td>@item.Jornada</td>
+                <td>@item.Fecha_Ingreso</td>
+                <td>@item.Anos_Servicio</td>
+                <td>@item.Bienios</td>
+                <td>@item.Nivel_Carrera</td>
+                <td>@item.SBase_Comunal</td>
+                <td>@item.Haberes</td>
+
+            </tr>
+
+            }
+
+        </tbody>
+    </table>
+
+}
+
+
+<br />
+<br />
+<hr />
+
+<div>
+    <a asp-controller="Home" asp-action="Index">Volver</a>
+</div>
+
+
