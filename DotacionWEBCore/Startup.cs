@@ -32,7 +32,7 @@ namespace DotacionWEBCore
         }
 
         public IConfiguration Configuration { get; }
-        
+
 
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -104,6 +104,13 @@ namespace DotacionWEBCore
             services.AddTransient<IVerificaRutHelpersV2, VerificaRutHelpersV2>();
             services.AddTransient<IPerfilUsuario, PerfilUsuario>();
             services.AddScoped<StringCase>();
+
+            services.AddHsts(options => 
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
             
         }
 
