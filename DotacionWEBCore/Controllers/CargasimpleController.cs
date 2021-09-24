@@ -1072,10 +1072,10 @@ namespace DotacionWEBCore.Controllers
                     AñosServicioError = true;
                     ModelState.AddModelError("", "Ingrese la cantidad de años de servicio");
                 }
-                else if (Convert.ToInt16(HttpContext.Request.Form["Anos_Servicio"].ToString()) > 60 || Convert.ToInt16(HttpContext.Request.Form["Anos_Servicio"].ToString()) < 0)
+                else if (Convert.ToInt16(HttpContext.Request.Form["Anos_Servicio"].ToString()) > 99 || Convert.ToInt16(HttpContext.Request.Form["Anos_Servicio"].ToString()) < 0)
                 {
                     JornadaError = true;
-                    ModelState.AddModelError("", "Los años de servicio no pueden ser menos de 0 o mas de 60 años");
+                    ModelState.AddModelError("", "Los años de servicio no pueden ser menos de 0 o mas de 99 años");
                 }
 
 

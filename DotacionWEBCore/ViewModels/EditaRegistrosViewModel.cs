@@ -120,7 +120,7 @@ namespace DotacionWEBCore.ViewModels
 
         [Display(Name = "Años de Servicio:")]
         [Required(ErrorMessage = "Los Años de Servicio son requeridos.")]
-        [Range(1, 60, ErrorMessage = "Los {0} deben tener un valor entre {1} y {2} años.")]
+        [Range(0, 99, ErrorMessage = "Los {0} deben tener un valor entre {1} y {2} años.")]
         [RegularExpression("([0-9]{1,2})", ErrorMessage = "Los Años de Servicio no deben tener mas de 2 caracteres.")]
         // [StringLength(2, ErrorMessage = "Los {0} no deben tener mas de {1} caracteres.")]
         public string Anos_Servicio { get; set; }
