@@ -480,7 +480,8 @@ namespace DotacionWEBCore.Controllers
 
             if (profesion == "MEDICO")
             {
-                especialidad = _context.DOTACION_Especialidad.Where(w => w.Especialidad != "N/A" && w.Profesion == "MEDICO").Select(s => new SelectListItem
+                // especialidad = _context.DOTACION_Especialidad.Where(w => w.Especialidad != "N/A" && w.Profesion == "MEDICO").Select(s => new SelectListItem
+                especialidad = _context.DOTACION_Especialidad.Where(w => w.Profesion == "MEDICO").Select(s => new SelectListItem
                 {
                     Value = s.Especialidad,
                     Text = s.Especialidad
