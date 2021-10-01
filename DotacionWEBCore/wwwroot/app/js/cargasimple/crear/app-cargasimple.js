@@ -536,6 +536,16 @@
         });
     }
 
+    checkNumerosEnterosRun() {
+        this.run.addEventListener('keypress', (e) => {
+            let charCode = (e.which) ? e.which : e.keyCode;
+            if ((charCode !== 8 && charCode !== 0) && (charCode < 48 || charCode > 57)) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    }
+
     resetForm(form) {
         //
         form.reset();

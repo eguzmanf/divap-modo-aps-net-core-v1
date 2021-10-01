@@ -74,10 +74,10 @@ namespace DotacionWEBCore.Controllers
             string Connstr1 = configuration.GetConnectionString("DefaultConnection");
             SqlConnection conn1 = new SqlConnection(Connstr1);
             // byte[] bytes = System.IO.File.ReadAllBytes("C:/Users/cesarrivera/Desktop/César Rivera Serrano/2019/11 - DOTACION/Manual -MoDo APS v1.0.pdf");
-            byte[] bytes = System.IO.File.ReadAllBytes("C:/Manual-MoDo-APS_v2.0.pdf");
+            byte[] bytes = System.IO.File.ReadAllBytes("C:/Manual-MoDo-APS_2021_v1.0.pdf");
             conn1.Open();
             // string query = "UPDATE [dbo].[DOTACION_Archivos] set [Archivo] = @archivo, [direccion] = 'C:/Users/cesarrivera/Desktop/Manual -MoDo APS v1.0.pdf' WHERE IdArchivo = 1";
-            string query = "UPDATE [dbo].[DOTACION_Archivos] set [Archivo] = @archivo, [direccion] = 'C:/Manual-MoDo-APS_v2.0.pdf' WHERE IdArchivo = 1";
+            string query = "UPDATE [dbo].[DOTACION_Archivos] set [Archivo] = @archivo, [direccion] = 'C:/Manual-MoDo-APS_2021_v1.0.pdf' WHERE IdArchivo = 1";
             SqlCommand cmd = new SqlCommand(query, conn1);
             cmd.Parameters.AddWithValue("@archivo", bytes);
             cmd.ExecuteReader();

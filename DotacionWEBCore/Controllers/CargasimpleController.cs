@@ -1,4 +1,6 @@
-﻿using DotacionWEBCore.Models;
+﻿using DotacionWEBCore.Helpers.Rut.V1;
+using DotacionWEBCore.Helpers.Rut.V2;
+using DotacionWEBCore.Models;
 using DotacionWEBCore.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Vereyon.Web;
 
 namespace DotacionWEBCore.Controllers
@@ -24,12 +27,17 @@ namespace DotacionWEBCore.Controllers
 
         private readonly IFlashMessage _flashMessage;
 
+        private readonly IVerificaRutHelpersV1 _rutv1;
+        private readonly IVerificaRutHelpersV2 _rutv2;
+
         // ------- definiendo conexion a base de datos ------- //
-        public CargasimpleController(DatabaseContext context, IConfiguration config, IFlashMessage flashMessage)
+        public CargasimpleController(DatabaseContext context, IConfiguration config, IFlashMessage flashMessage, IVerificaRutHelpersV1 verificaRutHelpersV1, IVerificaRutHelpersV2 verificaRutHelpersV2)
         {
             _context = context;
             configuration = config;
             _flashMessage = flashMessage;
+            _rutv1 = verificaRutHelpersV1;
+            _rutv2 = verificaRutHelpersV2;
         }
 
         public IActionResult Cargasimple()
@@ -948,6 +956,21 @@ namespace DotacionWEBCore.Controllers
                 {
                     DVError = true;
                     ModelState.AddModelError("", "Ingrese un Dv");
+                }
+
+                var rutCompleto = HttpContext.Request.Form["Rut"].ToString() + "-" + HttpContext.Request.Form["DV"].ToString();
+                Regex regex = new Regex(@"[0-9]{1,2}[0-9]{3}[0-9]{3}[-][0-9Kk]{1}");
+                Match match = regex.Match(rutCompleto);
+                if (!match.Success) {
+                    DVError = true;
+                    ModelState.AddModelError("", "Run con formato inválido");
+                }
+
+                var isValidRutV1b = _rutv1.verificaRut(rutCompleto);
+                if (!isValidRutV1b)
+                {
+                    DVError = true;
+                    ModelState.AddModelError("", "El Run ingresado es inválido");
                 }
 
 

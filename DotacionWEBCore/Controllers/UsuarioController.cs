@@ -555,14 +555,14 @@ namespace DotacionWEBCore.Controllers
                 var isValidRutV1b = _rutv1.verificaRut(vm.Create.UserName);
                 if(!isValidRutV1b)
                 {
-                    _flashMessage.Danger("El Rut ingresado " + vm.Create.UserName + " es inválido [" + isValidRutV1b + "]!");
+                    _flashMessage.Danger("El Run ingresado " + vm.Create.UserName + " es inválido [" + isValidRutV1b + "]!");
                     return RedirectToAction(nameof(Index));
                 }
 
                 var isValidRutV2a = _rutv2.ValidaRut(vm.Create.UserName);
                 if (!isValidRutV2a)
                 {
-                    _flashMessage.Danger("El Rut ingresado " + vm.Create.UserName + " es inválido [" + isValidRutV2a + "]!");
+                    _flashMessage.Danger("El Run ingresado " + vm.Create.UserName + " es inválido [" + isValidRutV2a + "]!");
                     return RedirectToAction(nameof(Index));
                 }
 
