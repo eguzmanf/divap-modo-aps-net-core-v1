@@ -14,6 +14,15 @@ namespace DotacionWEBCore.Helpers.Rut.V2
 		/// </summary>
 		/// <param name="rut">string</param>
 		/// <returns>booleano</returns>
+
+		// Sample String
+		// string stringwithspecialcharacters = "Th1i3s i4s a3 s@3mple str0ing wi25th !@#$%^&*()_-+<speical characters *&^&^k";
+		// Remove everything from string except number, kK and -
+		// string formatedProductName = Regex.Replace(stringwithspecialcharacters, @"[^0-9kK-]+", "");
+		// Remove everything from string except number
+		// string formatedProductName = Regex.Replace(stringwithspecialcharacters, @"[^0-9]+", "");
+		// Console.WriteLine("{0}", formatedProductName);
+
 		public bool ValidaRut(string rut)
 		{
 			rut = rut.Replace(".", "").ToUpper();

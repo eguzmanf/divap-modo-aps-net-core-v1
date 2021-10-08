@@ -958,7 +958,10 @@ namespace DotacionWEBCore.Controllers
                     ModelState.AddModelError("", "Ingrese un Dv");
                 }
 
-                var rutCompleto = HttpContext.Request.Form["Rut"].ToString() + "-" + HttpContext.Request.Form["DV"].ToString();
+                var rutSinDv = HttpContext.Request.Form["Rut"].ToString();
+                rutSinDv = Regex.Replace(rutSinDv, @"[^0-9]+", "");
+                var dv = HttpContext.Request.Form["DV"].ToString();
+                var rutCompleto = rutSinDv + "-" + dv;
                 Regex regex = new Regex(@"[0-9]{1,2}[0-9]{3}[0-9]{3}[-][0-9Kk]{1}");
                 Match match = regex.Match(rutCompleto);
                 if (!match.Success) {

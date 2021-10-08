@@ -522,7 +522,7 @@
 
     baseComunalFormat() {
         //
-        this.sueldoBaseComunal.addEventListener('change', e => {
+        this.sueldoBaseComunal.addEventListener('input', (e) => {
             //
             this.metodos.formatSeparadorMiles(this.sueldoBaseComunal);
         });
@@ -530,7 +530,7 @@
 
     totalHaberesFormat() {
         //
-        this.haberes.addEventListener('change', e => {
+        this.haberes.addEventListener('input', (e) => {
             //
             this.metodos.formatSeparadorMiles(this.haberes);
         });
@@ -543,6 +543,33 @@
                 e.preventDefault();
                 return false;
             }
+        });
+    }
+
+    onlyNumCopyPasteRun() {
+        this.run.addEventListener('input', (e) => {
+            //
+            let value = e.target.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            e.target.value = numbers;
+        });
+    }
+
+    onlyNumCopyPasteJornada() {
+        this.jornada.addEventListener('input', (e) => {
+            //
+            let value = e.target.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            e.target.value = numbers;
+        });
+    }
+
+    onlyNumCopyPasteAniosServicio() {
+        this.aniosServicio.addEventListener('input', (e) => {
+            //
+            let value = e.target.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            e.target.value = numbers;
         });
     }
 

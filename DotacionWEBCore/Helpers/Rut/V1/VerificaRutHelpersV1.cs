@@ -7,6 +7,14 @@ namespace DotacionWEBCore.Helpers.Rut.V1
 {
     public class VerificaRutHelpersV1 : IVerificaRutHelpersV1
     {
+        // Sample String
+        // string stringwithspecialcharacters = "Th1i3s i4s a3 s@3mple str0ing wi25th !@#$%^&*()_-+<speical characters *&^&^k";
+        // Remove everything from string except number, kK and -
+        // string formatedProductName = Regex.Replace(stringwithspecialcharacters, @"[^0-9kK-]+", "");
+        // Remove everything from string except number
+        // string formatedProductName = Regex.Replace(stringwithspecialcharacters, @"[^0-9]+", "");
+        // Console.WriteLine("{0}", formatedProductName);
+
         public VerificaRutHelpersV1() { 
         }
 

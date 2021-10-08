@@ -481,8 +481,15 @@ export class FuncionesGenerales {
             num = num.split('').reverse().join('').replace(/^[\.]/, '');
             input.value = num;
         } else {
-            alert('Solo se permiten numeros');
-            input.value = input.value.replace(/[^\d\.]*/g, '');
+            // alert('Solo se permiten numeros');
+            let value = input.value;
+            let numbers = value.replace(/[^0-9]/g, "");
+            input.value = numbers;
+            num = input.value.replace(/[^\d\.]*/g, '');
+            num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g, '$1.');
+            num = num.split('').reverse().join('').replace(/^[\.]/, '');
+            // console.log(num);
+            input.value = num;
         }
     }
 
