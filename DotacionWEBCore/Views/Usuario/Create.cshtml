@@ -11,7 +11,7 @@
             <hr />
             <div class="row">
                 <div class="col-md-4">
-                    <form asp-action="Create" id="formCrearUsuario">
+                    <form asp-action="Create" id="formCrearUsuario" autocomplete="off">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <!-- [ -- ########################################### [Extended] ########################################### -- ] -->
                         <div class="form-group">
@@ -64,7 +64,7 @@
                         <!-- [ -- ########################################### [Create] ########################################### -- ] -->
                         <div class="form-group">
                             <label asp-for="Create.UserName" class="control-label"></label>
-                            <input id="userName" asp-for="Create.UserName" class="form-control form-control-sm" autocomplete="off" placeholder="12345678-9" maxlength="10" />
+                            <input id="userName" asp-for="Create.UserName" class="form-control form-control-sm" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');" placeholder="12345678-9" maxlength="10" />
                             <span asp-validation-for="Create.UserName" class="text-danger"></span>
                             <div id="mensaje-error-rut-invalido" class="text-danger h6"></div>
                         </div>
@@ -107,7 +107,7 @@
                         <div class="form-group">
                             <label asp-for="Create.PasswordHash"></label>
                             <div class="input-group input-group-sm">
-                                <input id="passwordHash" type="password" asp-for="Create.PasswordHash" class="form-control form-control-sm" autocomplete="off" />
+                                <input id="passwordHash" type="password" asp-for="Create.PasswordHash" class="form-control form-control-sm" autocomplete="off" readonly/>
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fas fa-eye" id="togglePassword" style="cursor: pointer;"></i></span>
                                 </div>

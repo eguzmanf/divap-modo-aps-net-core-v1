@@ -39,6 +39,7 @@
 
     // ####################################### LLAMAR FUNCIONES #######################################################
     //
+    preventAutoFillPassword();
     datetimePicker();
     app.sendFormSubmit();
     app.mostrarCampos();
@@ -66,6 +67,15 @@
             format: 'DD/MM/YYYY',
             // format: 'YYYY/MM/DD',
             // date: moment(),
+        });
+    }
+
+    function preventAutoFillPassword() {
+        $(document).ready(function () {
+            setTimeout(function () {
+                $("#passwordHash").attr('readonly', false);
+                // $("#passwordHash").focus();
+            }, 500);
         });
     }
 
