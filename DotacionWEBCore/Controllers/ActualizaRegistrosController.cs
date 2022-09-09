@@ -511,7 +511,9 @@ namespace DotacionWEBCore.Controllers
                 "Sueldo Base comunal",
                 "Total Haberes",
                 "Validado",
-                "Revisado"
+                "Revisado",
+                "Activo",
+                "Fecha Carga"
                 };
 
                     byte[] result;
@@ -576,6 +578,8 @@ namespace DotacionWEBCore.Controllers
                             worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Haberes;
                             worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
                             worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["AF" + ContadorRegistros].Value = RegistrosExcel.Activo;
+                            worksheet.Cells["AG" + ContadorRegistros].Value = RegistrosExcel.Fecha_Carga;
 
                             ContadorRegistros++;
                         }

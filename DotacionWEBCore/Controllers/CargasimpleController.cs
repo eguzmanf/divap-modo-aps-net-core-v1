@@ -1004,6 +1004,18 @@ namespace DotacionWEBCore.Controllers
                     ModelState.AddModelError("0", "Seleccione Sexo");
                 }
 
+                string fechaNacimientoString = HttpContext.Request.Form["Fecha_Nacimiento"].ToString();
+                DateTime fechaNacimientoDate = Convert.ToDateTime(fechaNacimientoString);
+                DateTime fechaActualDate = DateTime.Now;
+
+                int now = int.Parse(fechaActualDate.ToString("yyyyMMdd"));
+                int dob = int.Parse(fechaNacimientoDate.ToString("yyyyMMdd"));
+                int age = (now - dob) / 10000;
+
+                if (age < 18 || age > 100) {
+                    Fecha_NacimientoError = true;
+                    ModelState.AddModelError("0", "La fecha de nacimiento debe corresponder a una edad mayor a 17 años o menor a 101 años, edad: " + age);
+                }
 
                 if (HttpContext.Request.Form["Fecha_Nacimiento"].ToString() == "")
                 {
