@@ -665,7 +665,7 @@ namespace DotacionWEBCore.Controllers
 
             } else
             {
-                profesion = _context.DOTACION_Profesion.Where(w => w.Categoria == "N/A" && w.IdCategoria == 7).Select(s => new SelectListItem
+                profesion = _context.DOTACION_Profesion.Where(w => w.Categoria == "N/A" && w.IdCategoria == 7 && w.IdProfesion != 22).Select(s => new SelectListItem
                 {
                     Value = s.Profesion,
                     Text = s.Profesion
