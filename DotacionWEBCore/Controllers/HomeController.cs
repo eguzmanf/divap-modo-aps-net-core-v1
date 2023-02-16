@@ -51,11 +51,18 @@ namespace DotacionWEBCore.Controllers
 
         public IActionResult Privacy()
         {
-            var perfilName = _context.DOTACION_Usuarios_Full.Where(s => s.UserName == User.Identity.Name).Select(b => b.RoleName).First();
-            ViewBag.Rol = perfilName;
+            if (User.Identity.Name != null)
+            {
+                var perfilName = _context.DOTACION_Usuarios_Full.Where(s => s.UserName == User.Identity.Name).Select(b => b.RoleName).First();
+                ViewBag.Rol = perfilName;
 
-            var Perfil_U = _context.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(b => b.ID_Perfil).First();
-            ViewBag.RolId = Perfil_U.ToString();
+                var Perfil_U = _context.AspNetUsers.Where(s => s.UserName == User.Identity.Name).Select(b => b.ID_Perfil).First();
+                ViewBag.RolId = Perfil_U.ToString();
+            } else
+            {
+                ViewBag.Rol = "";
+                ViewBag.RolId = "";
+            }
 
             return View();
         }
