@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System;
 using Microsoft.AspNetCore.Authorization;
 using System.Linq;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace DotacionWEBCore.Controllers
 {
@@ -121,7 +122,12 @@ namespace DotacionWEBCore.Controllers
             SqlDataReader rdr = cmd.ExecuteReader();
             rdr.Read();
             byte[] bytes = (Byte[])rdr["Archivo"];
-            System.IO.File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "/manual.pdf", bytes);
+
+            string path = "C:\\Temp\\";
+
+            // System.IO.File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "/manual.pdf", bytes); // for localhost
+            // System.IO.File.WriteAllBytes(Environment.CurrentDirectory + "/manual.pdf", bytes);       // for production
+            System.IO.File.WriteAllBytes(path + "manual.pdf", bytes);
             conn1.Close();
             return File(bytes, "application/pdf");
         }
