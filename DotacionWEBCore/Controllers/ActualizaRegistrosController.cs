@@ -317,7 +317,7 @@ namespace DotacionWEBCore.Controllers
                         List<ListaRegistros> MonitoreoRegistros_S = new List<ListaRegistros>();
                         MonitoreoRegistros_S = (from Resultados in _context.DOTACION_Registros_resultados
                                                 where Resultados.ID_Servicio == int.Parse(SQLIdServicio.ToString()) && Resultados.Activo == 0
-                                                orderby Resultados.Rut, Resultados.ID_Comuna, Resultados.ID_Establecimiento, Resultados.Ley, Resultados.Tipo_contrato
+                                                orderby Resultados.ID_Registro
                                                 select Resultados).ToList();
                         ViewBag.Resultados = MonitoreoRegistros_S.ToList();
 
@@ -430,7 +430,7 @@ namespace DotacionWEBCore.Controllers
                         List<ListaRegistros> MonitoreoRegistros_S = new List<ListaRegistros>();
                         MonitoreoRegistros_S = (from Resultados in _context.DOTACION_Registros_resultados
                                                 where Resultados.ID_Comuna == int.Parse(SQLIdComuna.ToString()) && Resultados.Activo == 0
-                                                orderby Resultados.Rut, Resultados.ID_Comuna, Resultados.ID_Establecimiento, Resultados.Ley, Resultados.Tipo_contrato
+                                                orderby Resultados.ID_Registro
                                                 select Resultados).ToList();
                         ViewBag.Resultados = MonitoreoRegistros_S.ToList();
 
@@ -541,7 +541,7 @@ namespace DotacionWEBCore.Controllers
                         List<ListaRegistros> MonitoreoRegistros_S = new List<ListaRegistros>();
                         MonitoreoRegistros_S = (from Resultados in _context.DOTACION_Registros_resultados
                                                 where Resultados.Activo == 0
-                                                orderby Resultados.Rut, Resultados.ID_Servicio, Resultados.ID_Comuna, Resultados.ID_Establecimiento, Resultados.Ley, Resultados.Tipo_contrato
+                                                orderby Resultados.ID_Registro
                                                 select Resultados).ToList();
                         ViewBag.Resultados = MonitoreoRegistros_S.ToList();
 

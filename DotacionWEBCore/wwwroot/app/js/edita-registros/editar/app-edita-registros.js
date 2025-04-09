@@ -148,11 +148,15 @@
                                             let dataObject = data.resultado;
                                             this.CategoriaProfesionSelectList(dataObject, this.profesion, idLey);
 
+                                            /*
                                             if (idLey != "Ley 19.378") {
                                                 this.profesion.value = idProfesion;
+                                            } else if (idLey == "Ley 19.664") {
+                                                this.profesion.value = 'MEDICO';
                                             } else {
                                                 this.profesion.remove(1);
                                             }
+                                            */
                                              
                                         });
                                 });
@@ -169,7 +173,10 @@
         this.categoria.addEventListener('change', e => {
             //
             let idCategoria = e.target.value
+            console.log("idCategoria: " + idCategoria);
+
             let idLey = this.ley.value;
+            console.log("idLey: " + this.ley.value);
             //
             this.api.fetchProfesionByIdCategoriaChange(idCategoria, idLey)
                 .then(data => {
@@ -324,6 +331,7 @@
         });
     }
 
+    /*
     CategoriaProfesionSelectList(dataObject, objectHtmlSelect, idLey) {
         //
         let objectHS = objectHtmlSelect;
@@ -342,6 +350,50 @@
             option.value = dataObject[key].value;
             objectHS.add(option);
         });
+    }*/
+
+    CategoriaProfesionSelectList(dataObject, objectHtmlSelect, idLey) {
+        //
+        let objectHS = objectHtmlSelect;
+        objectHS.length = 0;
+
+        console.log("CategoriaProfesionSelectList Ley: " + idLey);
+        console.log("this.ley.value: " + this.ley.value);
+        console.log("this.profesion.value: " + this.profesion.value);
+        console.log("this.profesion.text: " + this.profesion.text);
+        console.log("this.profesion.innerHTML: " + this.profesion.innerHTML);
+        console.log("this.profesion.innerText: " + this.profesion.innerText);
+
+        if (idLey == "Ley 19.664") {
+            let defaultOption = document.createElement('option');
+            defaultOption.value = 'MEDICO';
+            defaultOption.text = 'MEDICO';
+            objectHS.add(defaultOption);
+            objectHS.selectedIndex = '';
+
+            let idProfesionMedico = 'MEDICO'
+            this.api.fetchEspecialidadByIdProfesionChange(idProfesionMedico)
+                .then(data => {
+                    let dataObject = data.resultado;
+                    this.ProfesionEspecialidadSelectList(dataObject, this.especialidad, idProfesionMedico);
+                });
+
+        } else {
+            //
+            let defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.text = 'Seleccionar...';
+            objectHS.add(defaultOption);
+            objectHS.selectedIndex = '';
+
+            let option;
+            Object.keys(dataObject).forEach(function (key) {
+                option = document.createElement('option');
+                option.text = dataObject[key].text;
+                option.value = dataObject[key].value;
+                objectHS.add(option);
+            });
+        }
     }
 
     ProfesionEspecialidadSelectList(dataObject, objectHtmlSelect, idProfesion) {

@@ -235,11 +235,11 @@
         //
         this.ley.addEventListener('change', e => {
             let idLey = e.target.value;
+            console.log("idLey: " + idLey);
             this.api.fetchContratosByIdLey(idLey)
                 .then(data => {
                     let dataObject = data.resultado;
                     this.ContratoSelectList(dataObject, this.tipoContrato, idLey);
-
                     this.api.fetchCategoriaByIdLey(idLey)
                         .then(data => {
                             let dataObject = data.resultado;
@@ -251,6 +251,7 @@
                                     this.NivelCarreraSelectList(dataObject, this.nivelCarrera, idLey);
 
                                     let idCategoria = this.categoria.value;
+                                    console.log("idCategoria: " + idCategoria);
                                     this.api.fetchProfesionByIdLey(idLey, idCategoria)
                                         .then(data => {
                                             let dataObject = data.resultado;
@@ -283,6 +284,8 @@
         this.profesion.addEventListener('change', e => {
             //
             let idProfesion = e.target.value;
+
+            console.log("idProfesion: " + idProfesion);
             //
             this.api.fetchEspecialidadByIdProfesionChange(idProfesion)
                 .then(data => {
@@ -380,6 +383,7 @@
         });
     }
 
+    /*
     CategoriaProfesionSelectList(dataObject, objectHtmlSelect, idLey) {
         //
         let objectHS = objectHtmlSelect;
@@ -398,6 +402,45 @@
             option.value = dataObject[key].value;
             objectHS.add(option);
         });
+    }
+    */
+
+    CategoriaProfesionSelectList(dataObject, objectHtmlSelect, idLey) {
+        //
+        let objectHS = objectHtmlSelect;
+        objectHS.length = 0;
+
+        console.log("CategoriaProfesionSelectList Ley: " + idLey);
+
+        if (idLey == "Ley 19.664") {
+            let defaultOption = document.createElement('option');
+            defaultOption.value = 'MEDICO';
+            defaultOption.text = 'MEDICO';
+            objectHS.add(defaultOption);
+            objectHS.selectedIndex = '';
+
+            let idProfesionMedico = 'MEDICO'
+            this.api.fetchEspecialidadByIdProfesionChange(idProfesionMedico)
+                .then(data => {
+                    let dataObject = data.resultado;
+                    this.ProfesionEspecialidadSelectList(dataObject, this.especialidad, idProfesionMedico);
+                });
+        } else {
+            //
+            let defaultOption = document.createElement('option');
+            defaultOption.value = '';
+            defaultOption.text = 'Seleccionar...';
+            objectHS.add(defaultOption);
+            objectHS.selectedIndex = '';
+
+            let option;
+            Object.keys(dataObject).forEach(function (key) {
+                option = document.createElement('option');
+                option.text = dataObject[key].text;
+                option.value = dataObject[key].value;
+                objectHS.add(option);
+            });
+        }
     }
 
     ProfesionEspecialidadSelectList(dataObject, objectHtmlSelect, idProfesion) {

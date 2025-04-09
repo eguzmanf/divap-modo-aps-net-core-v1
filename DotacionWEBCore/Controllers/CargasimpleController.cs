@@ -167,6 +167,7 @@ namespace DotacionWEBCore.Controllers
 
                 List<ListaCargo> ListadoCargo = new List<ListaCargo>();
                 ListadoCargo = (from Cargo in _context.DOTACION_Cargo
+                                orderby Cargo.Cargo
                                 select Cargo).ToList();
                 ListadoCargo.Insert(0, new ListaCargo { Cargo = "" });
 
