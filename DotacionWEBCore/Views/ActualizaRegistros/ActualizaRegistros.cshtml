@@ -139,8 +139,11 @@
                                 <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
                                 <th id="Columna" name="Columna">Editar</th>
                                 <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Código Servicio de Salud</th>
                                 <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Código Comuna</th>
                                 <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Código Deis</th>
                                 <th id="Columna" name="Columna">Establecimiento</th>
                                 <th id="Columna" name="Columna">Administracion</th>
                                 <th id="Columna" name="Columna">Run</th>
@@ -176,8 +179,11 @@
                                     <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID" }></td>
                                     <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = registro.ID }, null)</td>
                                     <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Servicio)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Comuna)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>
@@ -292,8 +298,11 @@
                                 <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
                                 <th id="Columna" name="Columna">Editar</th>
                                 <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Código Servicio de Salud</th>
                                 <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Código Comuna</th>
                                 <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Código Deis</th>
                                 <th id="Columna" name="Columna">Establecimiento</th>
                                 <th id="Columna" name="Columna">Administracion</th>
                                 <th id="Columna" name="Columna">Run</th>
@@ -329,8 +338,11 @@
                                     <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID"></td>
                                     <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = @registro.ID }, null)</td>
                                     <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Servicio)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Comuna)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>
@@ -463,8 +475,11 @@
                                 <th id="Columna" name="Columna"><input type="checkbox" name="checkedAll" id="checkedAll"></th>
                                 <th id="Columna" name="Columna">Editar</th>
                                 <th bgcolor="grey" id="Columna" name="Columna">N°</th>
+                                <th id="Columna" name="Columna">Código Servicio de Salud</th>
                                 <th id="Columna" name="Columna">Servicio de Salud</th>
+                                <th id="Columna" name="Columna">Código Comuna</th>
                                 <th id="Columna" name="Columna">Comuna</th>
+                                <th id="Columna" name="Columna">Código Deis</th>
                                 <th id="Columna" name="Columna">Establecimiento</th>
                                 <th id="Columna" name="Columna">Administracion</th>
                                 <th id="Columna" name="Columna">Run</th>
@@ -500,8 +515,11 @@
                                     <td align="center"><input type="checkbox" name="checkAll[]" class="checkSingle" value="@registro.ID" }></td>
                                     <td id="link" name="link">@Html.ActionLink("Editar", "EditaRegistros", "EditaRegistros", new { ID = @registro.ID }, null)</td>
                                     <td bgcolor="grey">@fila</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Servicio)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Servicio)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Comuna)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Comuna)</td>
+                                    <td>@Html.DisplayFor(modelRegistro => registro.ID_Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Establecimiento)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Administracion)</td>
                                     <td>@Html.DisplayFor(modelRegistro => registro.Rut)-@Html.DisplayFor(modelRegistro => registro.DV)</td>

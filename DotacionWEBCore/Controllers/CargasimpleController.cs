@@ -174,6 +174,7 @@ namespace DotacionWEBCore.Controllers
 
                 List<ListaLey> ListadoLey = new List<ListaLey>();
                 ListadoLey = (from Ley in _context.DOTACION_Ley
+                              where Ley.IdLey != 4              // menos Ley 19.664
                               select Ley).ToList();
                 ListadoLey.Insert(0, new ListaLey { Ley = "" });
 

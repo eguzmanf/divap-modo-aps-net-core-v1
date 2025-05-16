@@ -260,8 +260,11 @@ namespace DotacionWEBCore.Controllers
                     var comlumHeadrs = new string[]
                 {
                 "N°",
+                "Código Servicio de Salud",
                 "Servicio de Salud",
+                "Código Comuna",
                 "Comuna",
+                "Código DEIS",
                 "Establecimiento",
                 "Administración",
                 "Run",
@@ -289,7 +292,8 @@ namespace DotacionWEBCore.Controllers
                 "Sueldo Base comunal",
                 "Total Haberes",
                 "Validado",
-                "Revisado"
+                "Revisado",
+                "Id Registro"
                 };
 
                     byte[] result;
@@ -299,7 +303,7 @@ namespace DotacionWEBCore.Controllers
                         // Agrega una hoja al libro de trabajo de excel
 
                         var worksheet = package.Workbook.Worksheets.Add("Validacion - Servicio"); //nombre de la hoja excel
-                        using (var cells = worksheet.Cells[1, 1, 1, 31])
+                        using (var cells = worksheet.Cells[1, 1, 1, 32])
                         {
                             cells.Style.Font.Bold = true;
                         }
@@ -325,36 +329,40 @@ namespace DotacionWEBCore.Controllers
                         {
 
                             worksheet.Cells["A" + ContadorRegistros].Value = ContadorRegistros - 1;
-                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.Servicio;
-                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Comuna;
-                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
-                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Administracion;
-                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.Rut;
-                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.DV;
-                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
-                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
-                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.Nombre;
-                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Sexo;
-                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
-                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
-                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Ley;
-                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
-                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Categoria;
-                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
-                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Profesion;
-                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
-                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Cargo;
-                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
-                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Jornada;
-                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
-                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
-                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Bienios;
-                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
-                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
-                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
-                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Haberes;
-                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
-                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.ID_Servicio;
+                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Servicio;
+                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.ID_Comuna;
+                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Comuna;
+                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.ID_Establecimiento;
+                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
+                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Administracion;
+                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Rut;
+                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.DV;
+                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
+                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
+                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nombre;
+                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Sexo;
+                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
+                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
+                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Ley;
+                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
+                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Categoria;
+                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
+                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Profesion;
+                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
+                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Cargo;
+                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
+                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Jornada;
+                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
+                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
+                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.Bienios;
+                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
+                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
+                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
+                            worksheet.Cells["AF" + ContadorRegistros].Value = RegistrosExcel.Haberes;
+                            worksheet.Cells["AG" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
+                            worksheet.Cells["AH" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["AI" + ContadorRegistros].Value = RegistrosExcel.ID_Registro;
 
 
                             ContadorRegistros++;
@@ -373,8 +381,11 @@ namespace DotacionWEBCore.Controllers
                     var comlumHeadrs = new string[]
                 {
                 "N°",
+                "Código Servicio de Salud",
                 "Servicio de Salud",
+                "Código Comuna",
                 "Comuna",
+                "Código DEIS",
                 "Establecimiento",
                 "Administración",
                 "Run",
@@ -402,7 +413,8 @@ namespace DotacionWEBCore.Controllers
                 "Sueldo Base comunal",
                 "Total Haberes",
                 "Validado",
-                "Revisado"
+                "Revisado",
+                "Id Registro"
                 };
 
                     byte[] result;
@@ -412,7 +424,7 @@ namespace DotacionWEBCore.Controllers
                         // Agrega una hoja al libro de trabajo de excel
 
                         var worksheet = package.Workbook.Worksheets.Add("Validacion - Comuna"); //nombre de la hoja excel
-                        using (var cells = worksheet.Cells[1, 1, 1, 31])
+                        using (var cells = worksheet.Cells[1, 1, 1, 32])
                         {
                             cells.Style.Font.Bold = true;
                         }
@@ -437,36 +449,40 @@ namespace DotacionWEBCore.Controllers
                         foreach (var RegistrosExcel in ViewBag.Resultados)
                         {
                             worksheet.Cells["A" + ContadorRegistros].Value = ContadorRegistros - 1;
-                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.Servicio;
-                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Comuna;
-                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
-                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Administracion;
-                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.Rut;
-                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.DV;
-                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
-                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
-                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.Nombre;
-                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Sexo;
-                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
-                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
-                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Ley;
-                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
-                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Categoria;
-                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
-                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Profesion;
-                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
-                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Cargo;
-                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
-                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Jornada;
-                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
-                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
-                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Bienios;
-                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
-                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
-                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
-                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Haberes;
-                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
-                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.ID_Servicio;
+                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Servicio;
+                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.ID_Comuna;
+                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Comuna;
+                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.ID_Establecimiento;
+                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
+                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Administracion;
+                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Rut;
+                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.DV;
+                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
+                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
+                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nombre;
+                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Sexo;
+                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
+                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
+                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Ley;
+                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
+                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Categoria;
+                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
+                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Profesion;
+                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
+                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Cargo;
+                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
+                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Jornada;
+                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
+                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
+                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.Bienios;
+                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
+                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
+                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
+                            worksheet.Cells["AF" + ContadorRegistros].Value = RegistrosExcel.Haberes;
+                            worksheet.Cells["AG" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
+                            worksheet.Cells["AH" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["AI" + ContadorRegistros].Value = RegistrosExcel.ID_Registro;
 
                             ContadorRegistros++;
                         }
@@ -482,8 +498,11 @@ namespace DotacionWEBCore.Controllers
                     var comlumHeadrs = new string[]
                 {
                 "N°",
+                "Código Servicio de Salud",
                 "Servicio de Salud",
+                "Código Comuna",
                 "Comuna",
+                "Código DEIS",
                 "Establecimiento",
                 "Administración",
                 "Run",
@@ -513,7 +532,8 @@ namespace DotacionWEBCore.Controllers
                 "Validado",
                 "Revisado",
                 "Activo",
-                "Fecha Carga"
+                "Fecha Carga",
+                "Id Registro"
                 };
 
                     byte[] result;
@@ -523,7 +543,7 @@ namespace DotacionWEBCore.Controllers
                         // Agrega una hoja al libro de trabajo de excel
 
                         var worksheet = package.Workbook.Worksheets.Add("Validacion - Minsal"); //nombre de la hoja excel
-                        using (var cells = worksheet.Cells[1, 1, 1, 31])
+                        using (var cells = worksheet.Cells[1, 1, 1, 34])
                         {
                             cells.Style.Font.Bold = true;
                         }
@@ -548,38 +568,42 @@ namespace DotacionWEBCore.Controllers
                         foreach (var RegistrosExcel in ViewBag.Resultados)
                         {
                             worksheet.Cells["A" + ContadorRegistros].Value = ContadorRegistros - 1;
-                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.Servicio;
-                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Comuna;
-                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
-                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Administracion;
-                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.Rut;
-                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.DV;
-                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
-                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
-                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.Nombre;
-                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Sexo;
-                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
-                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
-                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Ley;
-                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
-                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Categoria;
-                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
-                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Profesion;
-                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
-                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Cargo;
-                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
-                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Jornada;
-                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
-                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
-                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Bienios;
-                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
-                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
-                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
-                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Haberes;
-                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
-                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
-                            worksheet.Cells["AF" + ContadorRegistros].Value = RegistrosExcel.Activo;
-                            worksheet.Cells["AG" + ContadorRegistros].Value = RegistrosExcel.Fecha_Carga;
+                            worksheet.Cells["B" + ContadorRegistros].Value = RegistrosExcel.ID_Servicio;
+                            worksheet.Cells["C" + ContadorRegistros].Value = RegistrosExcel.Servicio;
+                            worksheet.Cells["D" + ContadorRegistros].Value = RegistrosExcel.ID_Comuna;
+                            worksheet.Cells["E" + ContadorRegistros].Value = RegistrosExcel.Comuna;
+                            worksheet.Cells["F" + ContadorRegistros].Value = RegistrosExcel.ID_Establecimiento;
+                            worksheet.Cells["G" + ContadorRegistros].Value = RegistrosExcel.Establecimiento;
+                            worksheet.Cells["H" + ContadorRegistros].Value = RegistrosExcel.Administracion;
+                            worksheet.Cells["I" + ContadorRegistros].Value = RegistrosExcel.Rut;
+                            worksheet.Cells["J" + ContadorRegistros].Value = RegistrosExcel.DV;
+                            worksheet.Cells["K" + ContadorRegistros].Value = RegistrosExcel.Apellido_Paterno;
+                            worksheet.Cells["L" + ContadorRegistros].Value = RegistrosExcel.Apellido_Materno;
+                            worksheet.Cells["M" + ContadorRegistros].Value = RegistrosExcel.Nombre;
+                            worksheet.Cells["N" + ContadorRegistros].Value = RegistrosExcel.Sexo;
+                            worksheet.Cells["O" + ContadorRegistros].Value = RegistrosExcel.Fecha_Nacimiento_Texto;
+                            worksheet.Cells["P" + ContadorRegistros].Value = RegistrosExcel.Nacionalidad;
+                            worksheet.Cells["Q" + ContadorRegistros].Value = RegistrosExcel.Ley;
+                            worksheet.Cells["R" + ContadorRegistros].Value = RegistrosExcel.Tipo_contrato;
+                            worksheet.Cells["S" + ContadorRegistros].Value = RegistrosExcel.Categoria;
+                            worksheet.Cells["T" + ContadorRegistros].Value = RegistrosExcel.Nivel_Carrera;
+                            worksheet.Cells["U" + ContadorRegistros].Value = RegistrosExcel.Profesion;
+                            worksheet.Cells["V" + ContadorRegistros].Value = RegistrosExcel.Especialidad;
+                            worksheet.Cells["W" + ContadorRegistros].Value = RegistrosExcel.Cargo;
+                            worksheet.Cells["X" + ContadorRegistros].Value = RegistrosExcel.Funciones_Chofer;
+                            worksheet.Cells["Y" + ContadorRegistros].Value = RegistrosExcel.Jornada;
+                            worksheet.Cells["Z" + ContadorRegistros].Value = RegistrosExcel.Anos_Servicio;
+                            worksheet.Cells["AA" + ContadorRegistros].Value = RegistrosExcel.Fecha_Ingreso_Texto;
+                            worksheet.Cells["AB" + ContadorRegistros].Value = RegistrosExcel.Bienios;
+                            worksheet.Cells["AC" + ContadorRegistros].Value = RegistrosExcel.Tipo_Prevision;
+                            worksheet.Cells["AD" + ContadorRegistros].Value = RegistrosExcel.Tipo_Isapre;
+                            worksheet.Cells["AE" + ContadorRegistros].Value = RegistrosExcel.SBase_Comunal;
+                            worksheet.Cells["AF" + ContadorRegistros].Value = RegistrosExcel.Haberes;
+                            worksheet.Cells["AG" + ContadorRegistros].Value = RegistrosExcel.ValidadoTexto;
+                            worksheet.Cells["AH" + ContadorRegistros].Value = RegistrosExcel.RevisadoTexto;
+                            worksheet.Cells["AI" + ContadorRegistros].Value = RegistrosExcel.Activo;
+                            worksheet.Cells["AJ" + ContadorRegistros].Value = RegistrosExcel.Fecha_Carga;
+                            worksheet.Cells["AK" + ContadorRegistros].Value = RegistrosExcel.ID_Registro;
 
                             ContadorRegistros++;
                         }
